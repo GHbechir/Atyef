@@ -47,6 +47,7 @@ enum ResourceType {
 enum SubscriptionPlan {
   BASIC
   VIP
+  PREMIUM_PLUS
 }
 
 enum SubscriptionStatus {
@@ -71,11 +72,25 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  // Gamification
+  currentStreak Int      @default(0)
+  longestStreak Int      @default(0)
+  totalXp       Int      @default(0)
+  level         Int      @default(1)
+  lastActiveAt  DateTime?
+
+  // Onboarding
+  selectedInstrumentId String?
+  selectedInstrument   Instrument? @relation("UserInstrument", fields: [selectedInstrumentId], references: [id])
+  selectedLevel        CourseLevel?
+  onboardingCompleted  Boolean     @default(false)
+
   // Relations for Learner
   enrollments    Enrollment[]
   courseProgress  CourseProgress[]
   lessonProgress LessonProgress[]
   subscription   Subscription?
+  badges         UserBadge[]
 
   // Relations for Teacher
   courses Course[] @relation("TeacherCourses")
@@ -89,11 +104,15 @@ model Instrument {
   slug        String   @unique
   description String?
   iconUrl     String?
+  icon        String?  // emoji icon
   color       String?  // hex color for UI theming
   sortOrder   Int      @default(0)
   createdAt   DateTime @default(now())
 
-  courses Course[]
+  courses       Course[]
+  subscriptions Subscription[]
+  users         User[]       @relation("UserInstrument")
+  songs         Song[]
 
   @@map("instruments")
 }
@@ -108,6 +127,7 @@ model Course {
   style        CourseStyle  @default(OTHER)
   published    Boolean     @default(false)
   featured     Boolean     @default(false)
+  isCommon     Boolean     @default(false) // accessible to all subscribers regardless of instrument
   price        Float?      // null = included in subscription
   duration     Int         @default(0) // total duration in minutes
   createdAt    DateTime    @default(now())
@@ -228,9 +248,63 @@ model Subscription {
   createdAt            DateTime           @default(now())
   updatedAt            DateTime           @updatedAt
 
+  // Instrument-based subscription
+  instrumentId String?
+  instrument   Instrument? @relation(fields: [instrumentId], references: [id])
+
   // Relations
   userId String @unique
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("subscriptions")
+}
+
+// ===== GAMIFICATION =====
+
+model Badge {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  description String
+  icon        String   // emoji or icon name
+  condition   String   // e.g. "first_lesson", "streak_7", "course_complete"
+  xpReward    Int      @default(0)
+  createdAt   DateTime @default(now())
+
+  users UserBadge[]
+
+  @@map("badges")
+}
+
+model UserBadge {
+  id        String   @id @default(cuid())
+  earnedAt  DateTime @default(now())
+
+  userId  String
+  user    User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  badgeId String
+  badge   Badge @relation(fields: [badgeId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, badgeId])
+  @@map("user_badges")
+}
+
+// ===== SONGS =====
+
+model Song {
+  id           String      @id @default(cuid())
+  title        String
+  artist       String
+  slug         String      @unique
+  level        CourseLevel @default(BEGINNER)
+  genre        String?
+  thumbnailUrl String?
+  tabUrl       String?     // tablature file
+  backingTrackUrl String?  // playback audio
+  createdAt    DateTime    @default(now())
+
+  instrumentId String
+  instrument   Instrument @relation(fields: [instrumentId], references: [id])
+
+  @@index([instrumentId])
+  @@map("songs")
 }

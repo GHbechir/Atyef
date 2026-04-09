@@ -17,7 +17,7 @@ export type CourseStyle =
   | "ELECTRONIC"
   | "OTHER";
 
-export type SubscriptionPlan = "BASIC" | "VIP";
+export type SubscriptionPlan = "BASIC" | "VIP" | "PREMIUM_PLUS";
 
 export type SubscriptionStatus =
   | "ACTIVE"
