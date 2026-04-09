@@ -1,0 +1,237 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ===== ENUMS =====
+
+enum UserRole {
+  LEARNER
+  TEACHER
+  ADMIN
+}
+
+enum CourseLevel {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
+
+enum CourseStyle {
+  CLASSICAL
+  JAZZ
+  ROCK
+  POP
+  BLUES
+  METAL
+  FOLK
+  REGGAE
+  LATIN
+  ELECTRONIC
+  OTHER
+}
+
+enum ResourceType {
+  PDF
+  AUDIO
+  TAB
+  IMAGE
+}
+
+enum SubscriptionPlan {
+  BASIC
+  VIP
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  CANCELLED
+  PAST_DUE
+  TRIALING
+  INCOMPLETE
+}
+
+// ===== MODELS =====
+
+model User {
+  id        String   @id @default(cuid())
+  clerkId   String   @unique
+  email     String   @unique
+  firstName String?
+  lastName  String?
+  role      UserRole @default(LEARNER)
+  avatarUrl String?
+  bio       String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations for Learner
+  enrollments    Enrollment[]
+  courseProgress  CourseProgress[]
+  lessonProgress LessonProgress[]
+  subscription   Subscription?
+
+  // Relations for Teacher
+  courses Course[] @relation("TeacherCourses")
+
+  @@map("users")
+}
+
+model Instrument {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  slug        String   @unique
+  description String?
+  iconUrl     String?
+  color       String?  // hex color for UI theming
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+
+  courses Course[]
+
+  @@map("instruments")
+}
+
+model Course {
+  id           String      @id @default(cuid())
+  title        String
+  slug         String      @unique
+  description  String
+  thumbnailUrl String?
+  level        CourseLevel  @default(BEGINNER)
+  style        CourseStyle  @default(OTHER)
+  published    Boolean     @default(false)
+  featured     Boolean     @default(false)
+  price        Float?      // null = included in subscription
+  duration     Int         @default(0) // total duration in minutes
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  // Relations
+  teacherId    String
+  teacher      User        @relation("TeacherCourses", fields: [teacherId], references: [id])
+  instrumentId String
+  instrument   Instrument  @relation(fields: [instrumentId], references: [id])
+  lessons      Lesson[]
+  enrollments  Enrollment[]
+  progress     CourseProgress[]
+
+  @@index([teacherId])
+  @@index([instrumentId])
+  @@index([published])
+  @@map("courses")
+}
+
+model Lesson {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  videoUrl    String?
+  duration    Int      @default(0) // duration in seconds
+  sortOrder   Int      @default(0)
+  isFree      Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  courseId   String
+  course    Course         @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  resources LessonResource[]
+  progress  LessonProgress[]
+
+  @@index([courseId])
+  @@map("lessons")
+}
+
+model LessonResource {
+  id       String       @id @default(cuid())
+  title    String
+  type     ResourceType
+  fileUrl  String
+  fileSize Int?         // in bytes
+  createdAt DateTime    @default(now())
+
+  // Relations
+  lessonId String
+  lesson   Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+
+  @@index([lessonId])
+  @@map("lesson_resources")
+}
+
+model Enrollment {
+  id         String   @id @default(cuid())
+  enrolledAt DateTime @default(now())
+
+  // Relations
+  userId   String
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  courseId  String
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, courseId])
+  @@index([userId])
+  @@index([courseId])
+  @@map("enrollments")
+}
+
+model CourseProgress {
+  id                String   @id @default(cuid())
+  completionPercent Float    @default(0)
+  lastAccessedAt    DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  // Relations
+  userId  String
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  courseId String
+  course  Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, courseId])
+  @@index([userId])
+  @@index([courseId])
+  @@map("course_progress")
+}
+
+model LessonProgress {
+  id             String    @id @default(cuid())
+  completed      Boolean   @default(false)
+  watchedSeconds Int       @default(0)
+  completedAt    DateTime?
+  updatedAt      DateTime  @updatedAt
+
+  // Relations
+  userId   String
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lessonId String
+  lesson   Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, lessonId])
+  @@index([userId])
+  @@index([lessonId])
+  @@map("lesson_progress")
+}
+
+model Subscription {
+  id                   String             @id @default(cuid())
+  stripeCustomerId     String?
+  stripeSubscriptionId String?            @unique
+  plan                 SubscriptionPlan   @default(BASIC)
+  status               SubscriptionStatus @default(ACTIVE)
+  currentPeriodEnd     DateTime?
+  createdAt            DateTime           @default(now())
+  updatedAt            DateTime           @updatedAt
+
+  // Relations
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("subscriptions")
+}
