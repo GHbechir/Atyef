@@ -48,6 +48,7 @@ enum SubscriptionPlan {
   BASIC
   VIP
   PREMIUM_PLUS
+  FAMILY
 }
 
 enum SubscriptionStatus {
@@ -94,6 +95,11 @@ model User {
 
   // Relations for Teacher
   courses Course[] @relation("TeacherCourses")
+
+  // Family
+  familyGroupOwned  FamilyGroup?  @relation("FamilyOwner")
+  familyGroupId     String?
+  familyGroup       FamilyGroup?  @relation("FamilyMembers", fields: [familyGroupId], references: [id])
 
   @@map("users")
 }
@@ -257,6 +263,21 @@ model Subscription {
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("subscriptions")
+}
+
+// ===== FAMILY =====
+
+model FamilyGroup {
+  id        String   @id @default(cuid())
+  name      String   @default("Ma Famille")
+  maxMembers Int     @default(4)
+  createdAt DateTime @default(now())
+
+  ownerId String @unique
+  owner   User   @relation("FamilyOwner", fields: [ownerId], references: [id])
+  members User[] @relation("FamilyMembers")
+
+  @@map("family_groups")
 }
 
 // ===== GAMIFICATION =====
