@@ -82,7 +82,7 @@ export default function TeacherStudentsPage() {
                   <TableCell>
                     <div className="flex items-center gap-3">
                       <div className="flex-1 max-w-[120px]">
-                        <Progress value={student.progress} className="h-1.5" />
+                        <Progress value={student.progress || 0} className="h-1.5" />
                       </div>
                       <span className="text-xs font-medium text-muted-foreground w-8">
                         {student.progress}%

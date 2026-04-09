@@ -58,7 +58,7 @@ export default function LearnerCoursesPage() {
                             {Math.round(course.duration / 60)}h
                           </span>
                         </div>
-                        <Progress value={course.progress} className="h-1.5" />
+                        <Progress value={course.progress || 0} className="h-1.5" />
                       </div>
                       <Button size="sm" className="gradient-bg text-white hover:opacity-90 border-0 shrink-0 hidden sm:flex">
                         Continuer

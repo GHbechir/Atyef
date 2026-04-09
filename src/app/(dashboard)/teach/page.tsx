@@ -187,7 +187,7 @@ export default function TeacherDashboard() {
                 </div>
                 <div className="text-right shrink-0 hidden sm:block">
                   <div className="flex items-center gap-2 mb-1">
-                    <Progress value={student.progress} className="h-1.5 w-20" />
+                    <Progress value={student.progress || 0} className="h-1.5 w-20" />
                     <span className="text-xs text-muted-foreground w-8">{student.progress}%</span>
                   </div>
                   <p className="text-xs text-muted-foreground">{student.lastActive}</p>

@@ -172,7 +172,7 @@ export function Tuner({ className }: { className?: string }) {
       {/* Tuning Selector */}
       <div className="flex items-center justify-center gap-3 mb-8">
         <span className="text-sm text-muted-foreground">Accordage :</span>
-        <Select value={tuning} onValueChange={setTuning}>
+        <Select value={tuning} onValueChange={(val) => setTuning(val || "standard")}>
           <SelectTrigger className="w-48 h-9 bg-white/5 border-white/10 text-white text-sm">
             <SelectValue />
           </SelectTrigger>

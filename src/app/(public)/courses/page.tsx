@@ -98,7 +98,7 @@ export default function CoursesPage() {
               className="pl-10 bg-white/5 border-white/10 text-white placeholder:text-muted-foreground h-11"
             />
           </div>
-          <Select value={instrument} onValueChange={setInstrument}>
+          <Select value={instrument} onValueChange={(val) => setInstrument(val || "all")}>
             <SelectTrigger className="w-full sm:w-48 bg-white/5 border-white/10 text-white h-11">
               <SelectValue placeholder="Instrument" />
             </SelectTrigger>
@@ -111,7 +111,7 @@ export default function CoursesPage() {
               ))}
             </SelectContent>
           </Select>
-          <Select value={level} onValueChange={setLevel}>
+          <Select value={level} onValueChange={(val) => setLevel(val || "all")}>
             <SelectTrigger className="w-full sm:w-44 bg-white/5 border-white/10 text-white h-11">
               <SelectValue placeholder="Niveau" />
             </SelectTrigger>
@@ -121,13 +121,13 @@ export default function CoursesPage() {
               ))}
             </SelectContent>
           </Select>
-          <Select value={style} onValueChange={setStyle}>
+          <Select value={style} onValueChange={(val) => setStyle(val || "all")}>
             <SelectTrigger className="w-full sm:w-40 bg-white/5 border-white/10 text-white h-11">
               <SelectValue placeholder="Style" />
             </SelectTrigger>
             <SelectContent>
               {styles.map((s) => (
-                <SelectItem key={s.value} value={s.value}>{s.label}</SelectItem>
+                 <SelectItem key={s.value} value={s.value}>{s.label}</SelectItem>
               ))}
             </SelectContent>
           </Select>

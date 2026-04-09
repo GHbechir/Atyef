@@ -158,7 +158,7 @@ export default function LearnerDashboard() {
                     <span className="text-xs text-muted-foreground">Progression</span>
                     <span className="text-xs font-medium text-white">{MOCK_ENROLLED_COURSES[0].progress}%</span>
                   </div>
-                  <Progress value={MOCK_ENROLLED_COURSES[0].progress} className="h-2" />
+                  <Progress value={MOCK_ENROLLED_COURSES[0].progress || 0} className="h-2" />
                 </div>
                 <Link href="/learn/courses/1/lessons/l3">
                   <Button size="sm" className="gradient-bg text-white hover:opacity-90 border-0 group shrink-0">
@@ -186,7 +186,7 @@ export default function LearnerDashboard() {
                 <span className="text-xs text-muted-foreground">Progression</span>
                 <span className="text-xs font-medium text-white">{course.progress}%</span>
               </div>
-              <Progress value={course.progress} className="h-1.5" />
+              <Progress value={course.progress || 0} className="h-1.5" />
             </div>
           ))}
         </div>

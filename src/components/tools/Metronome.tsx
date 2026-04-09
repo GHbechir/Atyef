@@ -148,7 +148,7 @@ export function Metronome({ className }: MetronomeProps) {
       <div className="mb-6 px-2">
         <Slider
           value={[bpm]}
-          onValueChange={([val]) => setBpm(val)}
+          onValueChange={(val) => setBpm(Array.isArray(val) ? val[0] : val)}
           min={40}
           max={220}
           step={1}
@@ -213,7 +213,7 @@ export function Metronome({ className }: MetronomeProps) {
       {/* Time Signature */}
       <div className="flex items-center justify-center gap-3">
         <span className="text-sm text-muted-foreground">Mesure :</span>
-        <Select value={timeSignature} onValueChange={(v) => { setTimeSignature(v); if (isPlaying) { stop(); } }}>
+        <Select value={timeSignature} onValueChange={(v) => { setTimeSignature(v || "4/4"); if (isPlaying) { stop(); } }}>
           <SelectTrigger className="w-24 h-9 bg-white/5 border-white/10 text-white text-sm">
             <SelectValue />
           </SelectTrigger>
