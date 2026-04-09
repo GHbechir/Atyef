@@ -150,10 +150,8 @@ export default function TeacherDashboard() {
                 <p className="text-xs text-muted-foreground">ce mois</p>
               </div>
               <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="icon" className="w-8 h-8 text-muted-foreground hover:text-white shrink-0">
-                    <MoreVertical className="w-4 h-4" />
-                  </Button>
+                <DropdownMenuTrigger className="flex items-center justify-center w-8 h-8 text-muted-foreground hover:text-white shrink-0 rounded-md hover:bg-white/5 transition-colors">
+                  <MoreVertical className="w-4 h-4" />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
                   <DropdownMenuItem>Modifier</DropdownMenuItem>

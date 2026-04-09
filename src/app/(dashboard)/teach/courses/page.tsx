@@ -67,10 +67,8 @@ export default function TeacherCoursesPage() {
                 <p className="text-[10px] text-muted-foreground">revenus totaux</p>
               </div>
               <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="icon" className="w-8 h-8 shrink-0 text-muted-foreground hover:text-white">
-                    <MoreVertical className="w-4 h-4" />
-                  </Button>
+                <DropdownMenuTrigger className="flex items-center justify-center w-8 h-8 shrink-0 text-muted-foreground hover:text-white rounded-md hover:bg-white/5 transition-colors">
+                  <MoreVertical className="w-4 h-4" />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
                   <DropdownMenuItem><Edit2 className="w-3.5 h-3.5 mr-2" /> Modifier</DropdownMenuItem>

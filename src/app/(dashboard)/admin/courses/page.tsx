@@ -92,10 +92,8 @@ export default function AdminCoursesPage() {
                   </TableCell>
                   <TableCell className="text-right">
                     <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="icon" className="w-8 h-8 text-muted-foreground hover:text-white">
-                          <MoreVertical className="w-4 h-4" />
-                        </Button>
+                      <DropdownMenuTrigger className="flex items-center justify-center w-8 h-8 rounded-md text-muted-foreground hover:text-white hover:bg-white/5 transition-colors">
+                        <MoreVertical className="w-4 h-4" />
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
                         <DropdownMenuItem><Eye className="w-3.5 h-3.5 mr-2" /> Prévisualiser</DropdownMenuItem>
