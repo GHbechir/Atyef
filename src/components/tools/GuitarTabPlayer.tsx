@@ -570,7 +570,7 @@ export function GuitarTabPlayer() {
     <div className="space-y-4">
       {/* Song selector & controls */}
       <div className="flex flex-wrap items-center gap-3">
-        <Select value={selectedSong} onValueChange={changeSong}>
+        <Select value={selectedSong} onValueChange={(val) => val && changeSong(val)}>
           <SelectTrigger className="w-[280px] bg-white/5 border-white/10">
             <SelectValue />
           </SelectTrigger>
@@ -649,7 +649,7 @@ export function GuitarTabPlayer() {
           <Volume2 className="w-3.5 h-3.5 text-muted-foreground" />
           <Slider
             value={[volume * 100]}
-            onValueChange={(val: number[]) => setVolume(val[0] / 100)}
+            onValueChange={(val: any) => setVolume((Array.isArray(val) ? val[0] : val) / 100)}
             max={100}
             className="w-20"
           />
