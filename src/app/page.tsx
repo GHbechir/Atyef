@@ -55,7 +55,7 @@ export default function Home() {
             <div className="w-9 h-9 rounded-full bg-white flex items-center justify-center shadow-[0_0_15px_rgba(255,255,255,0.3)] group-hover:shadow-[0_0_20px_rgba(255,255,255,0.6)] transition-all">
               <Music2 className="w-5 h-5 text-black" />
             </div>
-            <span className="text-xl font-bold font-heading tracking-tight text-white hidden sm:block">
+            <span className="text-xl font-bold font-heading tracking-tight text-foreground hidden sm:block">
               Atyef
             </span>
           </Link>
@@ -71,7 +71,7 @@ export default function Home() {
               <Link
                 key={item.key}
                 href={item.path}
-                className="text-sm font-medium text-white/70 hover:text-white transition-colors px-4 py-2 rounded-full hover:bg-white/10"
+                className="text-sm font-medium text-foreground/70 hover:text-foreground transition-colors px-4 py-2 rounded-full hover:bg-white/10"
               >
                 {t(item.key as any)}
               </Link>
@@ -88,7 +88,7 @@ export default function Home() {
                   className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase transition-all ${
                     lang === l
                       ? "bg-white text-black shadow-sm"
-                      : "text-white/50 hover:text-white"
+                      : "text-foreground/50 hover:text-foreground"
                   }`}
                 >
                   {l}
@@ -100,7 +100,7 @@ export default function Home() {
             </div>
 
             <Link href="/sign-in">
-              <Button variant="ghost" className="rounded-full font-medium text-white/80 hover:text-white hover:bg-white/10 text-sm h-10 px-5">
+              <Button variant="ghost" className="rounded-full font-medium text-foreground/80 hover:text-foreground hover:bg-white/10 text-sm h-10 px-5">
                 {t("login")}
               </Button>
             </Link>
@@ -113,7 +113,7 @@ export default function Home() {
 
           {/* Mobile Menu Toggle */}
           <button
-            className="md:hidden p-2 text-white/80 hover:text-white bg-white/5 rounded-full"
+            className="md:hidden p-2 text-foreground/80 hover:text-foreground bg-white/5 rounded-full"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -133,7 +133,7 @@ export default function Home() {
                 key={item.key}
                 href={item.path}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="text-white/80 hover:text-white hover:bg-white/10 px-4 py-3 rounded-xl transition-colors font-medium text-center"
+                className="text-foreground/80 hover:text-foreground hover:bg-white/10 px-4 py-3 rounded-xl transition-colors font-medium text-center"
               >
                 {t(item.key as any)}
               </Link>
@@ -144,7 +144,7 @@ export default function Home() {
             </div>
             <div className="h-px bg-white/10 my-2" />
             <Link href="/sign-in" onClick={() => setIsMobileMenuOpen(false)}>
-              <Button variant="ghost" className="w-full text-white">
+              <Button variant="ghost" className="w-full text-foreground">
                 {t("login")}
               </Button>
             </Link>
@@ -165,20 +165,20 @@ export default function Home() {
             initial={{ opacity: 0, y: 30, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full glass border border-white/10 text-sm font-medium text-white mb-8"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full glass border border-white/10 text-sm font-medium text-foreground mb-8"
           >
             <Sparkles className="w-4 h-4 text-accent" />
             <span>{t("hero_badge")}</span>
             <div className="w-px h-4 bg-white/20 mx-2" />
-            <span className="text-white/60">Découvrir</span>
-            <ChevronRight className="w-4 h-4 text-white/40" />
+            <span className="text-foreground/60">Découvrir</span>
+            <ChevronRight className="w-4 h-4 text-foreground/40" />
           </motion.div>
 
           <motion.h1
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="text-5xl md:text-7xl lg:text-[6rem] font-bold font-heading leading-[1] text-white tracking-tight max-w-5xl"
+            className="text-5xl md:text-7xl lg:text-[6rem] font-bold font-heading leading-[1] text-foreground tracking-tight max-w-5xl"
             style={{ textShadow: '0 10px 40px rgba(0,0,0,0.5)' }}
           >
             {t("hero_title_1")}
@@ -192,7 +192,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-8 text-xl md:text-2xl text-white/50 max-w-2xl font-light tracking-wide lg:leading-relaxed"
+            className="mt-8 text-xl md:text-2xl text-foreground/50 max-w-2xl font-light tracking-wide lg:leading-relaxed"
           >
             {t("hero_subtitle")}
           </motion.p>
@@ -210,7 +210,7 @@ export default function Home() {
               </Button>
             </Link>
             <Link href="#preview" className="w-full sm:w-auto">
-              <Button variant="outline" className="w-full sm:w-auto h-14 px-8 text-base font-medium glass-pill border-white/20 hover:bg-white/10 text-white rounded-full transition-all hover:scale-105">
+              <Button variant="outline" className="w-full sm:w-auto h-14 px-8 text-base font-medium glass-pill border-white/20 hover:bg-white/10 text-foreground rounded-full transition-all hover:scale-105">
                 <Play className="w-4 h-4 mr-2" />
                 Voir comment ça marche
               </Button>
@@ -225,7 +225,7 @@ export default function Home() {
            <div className="flex items-end justify-between mb-12">
              <div>
                 <h2 className="text-sm font-semibold text-accent uppercase tracking-widest mb-2">Masterclasses</h2>
-                <p className="text-3xl md:text-4xl font-bold text-white">Apprenez avec les meilleurs.</p>
+                <p className="text-3xl md:text-4xl font-bold text-foreground">Apprenez avec les meilleurs.</p>
              </div>
              <div className="hidden md:flex gap-2">
                 <button className="w-12 h-12 rounded-full glass flex items-center justify-center hover:bg-white/10 transition-colors">
@@ -260,9 +260,9 @@ export default function Home() {
                         {course.icon}
                      </div>
                      <div>
-                        <Badge variant="outline" className="glass-pill border-white/20 text-white mb-4">Nouveau</Badge>
-                        <h3 className="text-2xl font-bold text-white mb-2">{course.title}</h3>
-                        <p className="text-white/60 text-sm line-clamp-2">Plongez dans des leçons immersives avec rendu 4K et partitions synchronisées.</p>
+                        <Badge variant="outline" className="glass-pill border-white/20 text-foreground mb-4">Nouveau</Badge>
+                        <h3 className="text-2xl font-bold text-foreground mb-2">{course.title}</h3>
+                        <p className="text-foreground/60 text-sm line-clamp-2">Plongez dans des leçons immersives avec rendu 4K et partitions synchronisées.</p>
                      </div>
                   </div>
                 </motion.div>
