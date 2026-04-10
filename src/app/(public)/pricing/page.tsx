@@ -38,7 +38,7 @@ export default function PricingPage() {
         >
           <Badge
             variant="outline"
-            className="mb-4 px-3 py-1 text-xs border-accent/30 text-accent bg-accent/10"
+            className="mb-5 px-4 py-1.5 text-[11px] font-semibold tracking-widest uppercase border-accent/30 text-accent bg-accent/5"
           >
             Tarifs transparents
           </Badge>
@@ -46,7 +46,7 @@ export default function PricingPage() {
             Investissez dans votre{" "}
             <span className="gradient-text">passion</span>
           </h1>
-          <p className="text-lg text-muted-foreground max-w-xl mx-auto">
+          <p className="text-base text-muted-foreground/80 max-w-xl mx-auto">
             Deux formules simples. Sans engagement. Essai gratuit de 7 jours.
           </p>
         </motion.div>
@@ -58,43 +58,43 @@ export default function PricingPage() {
           {PRICING_PLANS.map((plan, i) => (
             <motion.div
               key={plan.name}
-              className={`relative rounded-2xl p-8 ${
+              className={`relative rounded-2xl p-7 transition-all duration-300 hover:scale-[1.02] ${
                 plan.popular
-                  ? "glass-card border-2 border-purple-500/40 shadow-xl shadow-purple-500/10"
-                  : "glass-card"
+                  ? "glass-card border-2 border-purple-500/40 shadow-xl shadow-purple-500/15 hover:shadow-purple-500/25"
+                  : "glass-card hover:border-accent/20"
               }`}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.15, duration: 0.5 }}
             >
               {plan.popular && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                  <Badge className="gradient-bg text-white border-0 px-4 py-1 text-xs shadow-lg shadow-purple-500/30">
+                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
+                  <Badge className="gradient-bg text-white border-0 px-4 py-1 text-[11px] shadow-lg shadow-purple-500/30 animate-pulse-glow">
                     <Sparkles className="w-3 h-3 mr-1" />
                     Recommandé
                   </Badge>
                 </div>
               )}
-              <div className="mb-6">
-                <h2 className="text-2xl font-bold font-heading text-foreground mb-1">
+              <div className="mb-5">
+                <h2 className="text-xl font-bold font-heading text-foreground mb-1">
                   {plan.name}
                 </h2>
-                <p className="text-sm text-muted-foreground">{plan.description}</p>
+                <p className="text-sm text-muted-foreground/80">{plan.description}</p>
               </div>
-              <div className="flex items-baseline gap-1 mb-2">
+              <div className="flex items-baseline gap-1 mb-1">
                 <span className="text-4xl sm:text-5xl font-bold font-heading text-foreground">
                   {plan.price.toFixed(2).replace(".", ",")} €
                 </span>
-                <span className="text-muted-foreground text-lg">/ {plan.period}</span>
+                <span className="text-muted-foreground">/ {plan.period}</span>
               </div>
-              <p className="text-xs text-muted-foreground mb-8">
+              <p className="text-xs text-muted-foreground/60 mb-7">
                 Soit {(plan.price * 12 * 0.8).toFixed(2).replace(".", ",")} €/an avec l&apos;offre annuelle (-20%)
               </p>
               <Link href="/sign-up">
                 <Button
-                  className={`w-full h-12 text-base font-medium mb-8 group ${
+                  className={`w-full h-11 text-sm font-semibold mb-7 group rounded-xl ${
                     plan.popular
-                      ? "gradient-bg text-primary-foreground hover:opacity-90 border-0 shadow-lg shadow-primary/20"
+                      ? "gradient-bg text-primary-foreground hover:opacity-90 border-0 shadow-lg shadow-primary/20 glow-accent"
                       : "bg-foreground/5 hover:bg-foreground/10 text-foreground border border-border"
                   }`}
                 >
@@ -102,16 +102,16 @@ export default function PricingPage() {
                   <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
-              <ul className="space-y-3">
+              <ul className="space-y-2.5">
                 {plan.features.map((feature) => (
-                  <li key={feature} className="flex items-start gap-3 text-sm">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" />
+                  <li key={feature} className="flex items-center gap-2.5 text-sm py-2 border-b border-border/30 last:border-0">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
                     <span className="text-foreground/80">{feature}</span>
                   </li>
                 ))}
                 {plan.notIncluded.map((feature) => (
-                  <li key={feature} className="flex items-start gap-3 text-sm opacity-40">
-                    <CheckCircle2 className="w-4 h-4 text-muted-foreground mt-0.5 shrink-0" />
+                  <li key={feature} className="flex items-center gap-2.5 text-sm py-2 border-b border-border/20 last:border-0 opacity-35">
+                    <CheckCircle2 className="w-4 h-4 text-muted-foreground shrink-0" />
                     <span className="text-muted-foreground line-through">{feature}</span>
                   </li>
                 ))}
@@ -133,21 +133,23 @@ export default function PricingPage() {
             Questions fréquentes
           </h2>
         </motion.div>
-        <div className="space-y-4">
+        <div className="space-y-3">
           {faq.map((item, i) => (
             <motion.div
               key={i}
-              className="glass-card rounded-xl p-6"
+              className="glass-card rounded-2xl p-5 hover:border-accent/15 transition-all duration-300"
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
+              transition={{ delay: i * 0.08 }}
             >
               <div className="flex items-start gap-3">
-                <HelpCircle className="w-5 h-5 text-accent mt-0.5 shrink-0" />
+                <div className="w-7 h-7 rounded-lg bg-accent/10 flex items-center justify-center mt-0.5 shrink-0">
+                  <HelpCircle className="w-4 h-4 text-accent" />
+                </div>
                 <div>
-                  <h3 className="text-sm font-semibold text-foreground mb-2">{item.q}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{item.a}</p>
+                  <h3 className="text-sm font-semibold text-foreground mb-1.5">{item.q}</h3>
+                  <p className="text-sm text-muted-foreground/80 leading-relaxed">{item.a}</p>
                 </div>
               </div>
             </motion.div>

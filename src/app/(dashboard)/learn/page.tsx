@@ -37,23 +37,23 @@ function StatCard({
 }) {
   return (
     <motion.div
-      className="glass-card rounded-xl p-5"
+      className="stat-card p-5"
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay, duration: 0.4 }}
     >
       <div className="flex items-start justify-between mb-3">
-        <div className={`w-10 h-10 rounded-xl ${color} flex items-center justify-center`}>
-          <Icon className="w-5 h-5 text-white" />
+        <div className={`w-9 h-9 rounded-xl ${color} flex items-center justify-center`}>
+          <Icon className="w-4.5 h-4.5 text-white" />
         </div>
         {subtitle && (
-          <span className="text-xs text-emerald-400 font-medium flex items-center gap-1">
-            <TrendingUp className="w-3 h-3" />
+          <span className="text-[11px] text-emerald-400 font-semibold flex items-center gap-1 bg-emerald-500/10 px-2 py-0.5 rounded-full">
+            <TrendingUp className="w-2.5 h-2.5" />
             {subtitle}
           </span>
         )}
       </div>
-      <div className="text-2xl font-bold font-heading text-white">{value}</div>
+      <div className="text-2xl font-bold font-heading text-foreground">{value}</div>
       <div className="text-xs text-muted-foreground mt-1">{label}</div>
     </motion.div>
   );
@@ -70,10 +70,10 @@ export default function LearnerDashboard() {
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        <h1 className="text-2xl sm:text-3xl font-bold font-heading text-white mb-1">
+        <h1 className="text-2xl sm:text-3xl font-bold font-heading text-foreground mb-1">
           {t("welcome")}, Marie 👋
         </h1>
-        <p className="text-muted-foreground">
+        <p className="text-muted-foreground text-sm">
           {t("continue_learning")}
         </p>
       </motion.div>
@@ -84,8 +84,8 @@ export default function LearnerDashboard() {
           icon={BookOpen}
           label={t("courses_in_progress") as string}
           value={String(stats.totalCourses)}
-          subtitle="+1 this week" // Not localized yet, but we will keep it simple
-          color="bg-purple-500/20"
+          subtitle="+1"
+          color="bg-gradient-to-br from-purple-500/30 to-purple-500/10 border border-purple-500/20"
           delay={0}
         />
         <StatCard
@@ -93,14 +93,14 @@ export default function LearnerDashboard() {
           label={t("lessons_completed") as string}
           value={String(stats.completedLessons)}
           subtitle="+3"
-          color="bg-emerald-500/20"
+          color="bg-gradient-to-br from-emerald-500/30 to-emerald-500/10 border border-emerald-500/20"
           delay={0.05}
         />
         <StatCard
           icon={Clock}
           label={t("total_time") as string}
           value={`${Math.round(stats.totalWatchTime / 60)}h`}
-          color="bg-blue-500/20"
+          color="bg-gradient-to-br from-blue-500/30 to-blue-500/10 border border-blue-500/20"
           delay={0.1}
         />
         <StatCard
@@ -108,7 +108,7 @@ export default function LearnerDashboard() {
           label={t("current_streak") as string}
           value={`${stats.currentStreak} ${t("days")}`}
           subtitle="🔥"
-          color="bg-amber-500/20"
+          color="bg-gradient-to-br from-amber-500/30 to-amber-500/10 border border-amber-500/20"
           delay={0.15}
         />
       </div>
@@ -120,7 +120,7 @@ export default function LearnerDashboard() {
         transition={{ delay: 0.2 }}
       >
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-bold font-heading text-white">
+          <h2 className="text-lg font-semibold font-heading text-foreground">
             {t("resume_learning")}
           </h2>
           <Link href="/learn/courses">
@@ -194,27 +194,34 @@ export default function LearnerDashboard() {
         </div>
       </motion.div>
 
-      {/* Weekly Goal */}
+      {/* Weekly Goal - Streak Dots */}
       <motion.div
-        className="glass-card rounded-xl p-6"
+        className="stat-card p-6"
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
       >
-        <div className="flex items-center gap-3 mb-4">
-          <div className="w-10 h-10 rounded-xl bg-amber-500/15 flex items-center justify-center">
-            <Target className="w-5 h-5 text-amber-400" />
+        <div className="flex items-center gap-3 mb-5">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-500/30 to-amber-500/10 border border-amber-500/20 flex items-center justify-center">
+            <Target className="w-4.5 h-4.5 text-amber-400" />
           </div>
           <div>
-            <h3 className="text-sm font-semibold text-white">{t("weekly_goal")}</h3>
+            <h3 className="text-sm font-semibold text-foreground">{t("weekly_goal")}</h3>
             <p className="text-xs text-muted-foreground">{t("complete_lessons_goal")}</p>
           </div>
+          <div className="ml-auto text-xs font-semibold text-amber-400">3/5</div>
         </div>
-        <div className="flex items-center justify-between mb-2">
-          <span className="text-xs text-muted-foreground">3/5 {t("lessons")}</span>
-          <span className="text-xs font-medium text-amber-400">60%</span>
+        {/* Day-dot tracker */}
+        <div className="flex items-center gap-2 mb-3">
+          {["L","M","M","J","V","S","D"].map((day, i) => (
+            <div key={i} className="flex flex-col items-center gap-1 flex-1">
+              <div className={`w-full h-1.5 rounded-full transition-all ${
+                i < 3 ? "bg-amber-400" : "bg-foreground/10"
+              }`} />
+              <span className="text-[9px] text-muted-foreground">{day}</span>
+            </div>
+          ))}
         </div>
-        <Progress value={60} className="h-2" />
       </motion.div>
 
       {/* Explore Instruments */}
@@ -223,20 +230,20 @@ export default function LearnerDashboard() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.35 }}
       >
-        <h2 className="text-lg font-bold font-heading text-white mb-4">
+        <h2 className="text-lg font-semibold font-heading text-foreground mb-4">
           {t("explore_instruments")}
         </h2>
-        <div className="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-10 gap-3">
+        <div className="grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-10 gap-2.5">
           {INSTRUMENTS.map((instrument) => (
             <Link
               key={instrument.id}
               href={`/courses?instrument=${instrument.slug}`}
-              className="glass-card rounded-xl p-3 text-center group cursor-pointer"
+              className="stat-card p-3 text-center group cursor-pointer flex flex-col items-center gap-1.5"
             >
-              <span className="text-2xl block mb-1 group-hover:scale-110 transition-transform">
+              <span className="text-2xl block group-hover:scale-125 transition-transform duration-300">
                 {instrument.icon}
               </span>
-              <span className="text-[10px] text-muted-foreground group-hover:text-white transition-colors line-clamp-1">
+              <span className="text-[9px] text-muted-foreground group-hover:text-accent transition-colors line-clamp-1">
                 {instrument.name.split(" / ")[0]}
               </span>
             </Link>

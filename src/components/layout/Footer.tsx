@@ -69,34 +69,34 @@ export function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 lg:gap-12">
           {/* Brand Column */}
           <div className="col-span-2 md:col-span-4 lg:col-span-1 mb-4 lg:mb-0">
-            <Link href="/" className="flex items-center gap-2.5 mb-4">
-              <div className="w-9 h-9 rounded-lg gradient-bg flex items-center justify-center">
-                <Music2 className="w-4 h-4 text-white" />
-              </div>
-              <span className="text-lg font-bold font-heading">
-                <span className="font-bold text-xl tracking-tight">Aty<span className="gradient-text-purple">ef</span></span>
-              </span>
-            </Link>
-            <p className="text-sm text-muted-foreground leading-relaxed mb-6 max-w-xs">
-              La plateforme d&apos;apprentissage de musique en ligne. Apprenez à votre rythme avec les meilleurs professeurs.
-            </p>
-            <div className="flex items-center gap-3">
-              {socialLinks.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  aria-label={social.label}
-                  className="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center text-muted-foreground hover:text-white hover:bg-white/10 transition-all duration-200"
-                >
-                  <social.icon className="w-4 h-4" />
-                </a>
-              ))}
+            <Link href="/" className="flex items-center gap-2.5 mb-5">
+            <div className="w-9 h-9 rounded-lg gradient-bg flex items-center justify-center shadow-lg shadow-purple-500/20">
+              <Music2 className="w-4 h-4 text-white" />
             </div>
+            <span className="text-lg font-bold font-heading">
+              <span className="font-bold text-xl tracking-tight">Aty<span className="gradient-text-purple">ef</span></span>
+            </span>
+          </Link>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-6 max-w-xs">
+            La plateforme d&apos;apprentissage de musique en ligne. Apprenez à votre rythme avec les meilleurs professeurs.
+          </p>
+          <div className="flex items-center gap-2.5">
+            {socialLinks.map((social) => (
+              <a
+                key={social.label}
+                href={social.href}
+                aria-label={social.label}
+                className="w-9 h-9 rounded-xl bg-foreground/5 border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-accent/40 hover:scale-110 hover:bg-accent/5 transition-all duration-200"
+              >
+                <social.icon className="w-4 h-4" />
+              </a>
+            ))}
+          </div>
           </div>
 
           {/* Links Columns */}
           <div>
-            <h3 className="text-sm font-semibold text-white mb-4">Plateforme</h3>
+            <h3 className="text-sm font-semibold text-foreground mb-4 tracking-wide uppercase text-xs">Plateforme</h3>
             <ul className="space-y-3">
               {footerLinks.plateforme.map((link) => (
                 <li key={link.name}>
@@ -112,7 +112,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold text-white mb-4">Instruments</h3>
+            <h3 className="text-sm font-semibold text-foreground mb-4 tracking-wide uppercase text-xs">Instruments</h3>
             <ul className="space-y-3">
               {footerLinks.instruments.map((link) => (
                 <li key={link.name}>
@@ -128,7 +128,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold text-white mb-4">Support</h3>
+            <h3 className="text-sm font-semibold text-foreground mb-4 tracking-wide uppercase text-xs">Support</h3>
             <ul className="space-y-3">
               {footerLinks.support.map((link) => (
                 <li key={link.name}>
@@ -145,8 +145,8 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-muted-foreground">
+        <div className="mt-12 pt-8 border-t border-border/50 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-xs text-muted-foreground/70">
             © {new Date().getFullYear()} Atyef. Tous droits réservés.
           </p>
           <div className="flex items-center gap-1 text-sm text-muted-foreground">

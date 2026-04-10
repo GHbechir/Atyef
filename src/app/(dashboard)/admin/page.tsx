@@ -36,26 +36,26 @@ function AdminStatCard({
 }) {
   return (
     <motion.div
-      className="glass-card rounded-xl p-5"
+      className="stat-card p-5"
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay }}
     >
       <div className="flex items-start justify-between mb-4">
-        <div className={`w-10 h-10 rounded-xl ${color} flex items-center justify-center`}>
-          <Icon className="w-5 h-5 text-white" />
+        <div className={`w-9 h-9 rounded-xl ${color} flex items-center justify-center`}>
+          <Icon className="w-4 h-4 text-white" />
         </div>
         <Badge
           variant="outline"
-          className={`flex items-center gap-1 text-[10px] px-1.5 py-0 border-0 ${
+          className={`flex items-center gap-1 text-[10px] px-2 py-0.5 border-0 rounded-full ${
             trendUp ? "bg-emerald-500/10 text-emerald-400" : "bg-red-500/10 text-red-400"
           }`}
         >
-          {trendUp ? <ArrowUpRight className="w-3 h-3" /> : <ArrowDownRight className="w-3 h-3" />}
+          {trendUp ? <ArrowUpRight className="w-2.5 h-2.5" /> : <ArrowDownRight className="w-2.5 h-2.5" />}
           {trend}
         </Badge>
       </div>
-      <div className="text-2xl font-bold font-heading text-white">{value}</div>
+      <div className="text-2xl font-bold font-heading text-foreground">{value}</div>
       <div className="text-xs text-muted-foreground mt-1">{label}</div>
     </motion.div>
   );
@@ -84,7 +84,7 @@ export default function AdminDashboardPage() {
           value={`${(stats.totalRevenue).toLocaleString("fr-FR")} €`}
           trend="12.5%"
           trendUp={true}
-          color="bg-emerald-500/20 text-emerald-400"
+          color="bg-gradient-to-br from-emerald-500/30 to-emerald-500/10 border border-emerald-500/20"
           delay={0}
         />
         <AdminStatCard
@@ -93,7 +93,7 @@ export default function AdminDashboardPage() {
           value={stats.totalUsers.toLocaleString("fr-FR")}
           trend="5.2%"
           trendUp={true}
-          color="bg-purple-500/20 text-purple-400"
+          color="bg-gradient-to-br from-purple-500/30 to-purple-500/10 border border-purple-500/20"
           delay={0.05}
         />
         <AdminStatCard
@@ -102,7 +102,7 @@ export default function AdminDashboardPage() {
           value={stats.activeSubscriptions.toLocaleString("fr-FR")}
           trend="8.1%"
           trendUp={true}
-          color="bg-blue-500/20 text-blue-400"
+          color="bg-gradient-to-br from-blue-500/30 to-blue-500/10 border border-blue-500/20"
           delay={0.1}
         />
         <AdminStatCard
@@ -111,7 +111,7 @@ export default function AdminDashboardPage() {
           value={`${stats.retentionRate}%`}
           trend="1.2%"
           trendUp={false}
-          color="bg-amber-500/20 text-amber-400"
+          color="bg-gradient-to-br from-amber-500/30 to-amber-500/10 border border-amber-500/20"
           delay={0.15}
         />
       </div>
@@ -193,22 +193,51 @@ export default function AdminDashboardPage() {
           </div>
         </motion.div>
 
-        {/* Charts / Main Activity Area (Placeholder for MVP) */}
+        {/* Sparkline Chart */}
         <motion.div
-           className="lg:col-span-2 glass-card rounded-xl p-6 flex flex-col"
+           className="lg:col-span-2 stat-card p-6 flex flex-col"
            initial={{ opacity: 0, y: 15 }}
            animate={{ opacity: 1, y: 0 }}
            transition={{ delay: 0.25 }}
         >
            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-base font-semibold text-white">{t("revenue_growth")}</h3>
-              <Badge variant="outline" className="border-white/10 text-muted-foreground">{t("last_30_days")}</Badge>
+              <h3 className="text-sm font-semibold text-foreground">{t("revenue_growth")}</h3>
+              <Badge variant="outline" className="border-border/60 text-muted-foreground text-xs">{t("last_30_days")}</Badge>
            </div>
            
-           <div className="flex-1 flex flex-col items-center justify-center border-2 border-dashed border-white/5 rounded-xl bg-white/3 min-h-[300px]">
-              <TrendingUp className="w-12 h-12 text-muted-foreground/50 mb-3" />
-              <p className="text-sm text-muted-foreground">{t("chart_placeholder")}</p>
-              <p className="text-xs text-muted-foreground/60 mt-1">{t("subscription_evolution")}</p>
+           {/* CSS Sparkline */}
+           <div className="flex-1 flex flex-col justify-end">
+             <div className="sparkline">
+               {[35, 45, 30, 60, 55, 70, 65, 80, 72, 90, 85, 95].map((h, i) => (
+                 <div
+                   key={i}
+                   className="sparkline-bar"
+                   style={{
+                     height: `${h}%`,
+                     animationDelay: `${i * 0.05}s`,
+                     background: i === 11
+                       ? `oklch(0.58 0.22 290 / 0.9)`
+                       : `oklch(0.58 0.22 290 / ${0.2 + (i / 11) * 0.5})`,
+                   }}
+                 />
+               ))}
+             </div>
+             <div className="flex justify-between mt-3">
+               {["Jan","","Fév","","Mar","","Avr","","Mai","","Juin",""].map((m, i) => (
+                 <span key={i} className="text-[9px] text-muted-foreground/50">{m}</span>
+               ))}
+             </div>
+           </div>
+
+           <div className="mt-4 pt-4 border-t border-border/40 flex items-center gap-6">
+             <div>
+               <p className="text-xs text-muted-foreground">Ce mois</p>
+               <p className="text-lg font-bold text-foreground">{stats.totalRevenue.toLocaleString("fr-FR")} €</p>
+             </div>
+             <div>
+               <p className="text-xs text-muted-foreground">Croissance</p>
+               <p className="text-lg font-bold text-emerald-400">+12.5%</p>
+             </div>
            </div>
         </motion.div>
       </div>

@@ -38,21 +38,19 @@ export function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "glass"
-          : "bg-transparent"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        isScrolled ? "glass shadow-lg shadow-black/20" : "bg-transparent"
       }`}
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 lg:h-20">
+        <div className="flex items-center justify-between h-14 lg:h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 group">
             <div className="relative">
-              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl gradient-bg flex items-center justify-center transition-transform group-hover:scale-110 duration-300">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl gradient-bg flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_20px_oklch(0.58_0.22_290/0.5)]">
                 <Music2 className="w-5 h-5 text-white" />
               </div>
-              <div className="absolute inset-0 w-9 h-9 sm:w-10 sm:h-10 rounded-xl gradient-bg opacity-0 group-hover:opacity-40 blur-lg transition-opacity duration-300" />
+              <div className="absolute inset-0 w-9 h-9 sm:w-10 sm:h-10 rounded-xl gradient-bg opacity-0 group-hover:opacity-50 blur-xl transition-all duration-300" />
             </div>
             <span className="text-xl font-bold font-heading tracking-tight">
               <span className="font-bold text-lg sm:text-xl tracking-tight">Aty<span className="gradient-text-purple">ef</span></span>
@@ -78,17 +76,17 @@ export function Navbar() {
 
           {/* Desktop Auth Buttons */}
           <div className="hidden lg:flex items-center gap-3">
-            <div className="flex items-center gap-1 mr-2 border-r border-border pr-4">
+            <div className="flex items-center gap-1 mr-2 border-r border-border/60 pr-4">
               <LanguageToggle />
               <ThemeToggle />
             </div>
             <Link href="/sign-in">
-              <Button variant="ghost" className="text-sm font-medium text-muted-foreground hover:text-foreground">
+              <Button variant="ghost" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
                 {t("login")}
               </Button>
             </Link>
             <Link href="/sign-up">
-              <Button className="text-sm font-medium gradient-bg hover:opacity-90 text-white border-0 shadow-lg shadow-purple-500/20">
+              <Button className="text-sm font-medium gradient-bg hover:opacity-90 text-white border-0 shadow-lg shadow-purple-500/25 glow-accent rounded-full px-5">
                 {t("register")}
               </Button>
             </Link>
@@ -96,7 +94,7 @@ export function Navbar() {
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-foreground/5 transition-colors"
+            className="lg:hidden p-2 rounded-xl text-muted-foreground hover:text-foreground hover:bg-foreground/5 transition-all duration-200 border border-transparent hover:border-border/50"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Menu"
           >
