@@ -33,6 +33,8 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
+import { ThemeToggle } from "@/components/layout/ThemeToggle";
+import { LanguageToggle } from "@/components/layout/LanguageToggle";
 
 const learnerNav = [
   { name: "Tableau de bord", href: "/learn", icon: Home },
@@ -222,6 +224,10 @@ export default function LearnerLayout({
             <div className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 mr-2">
               <span className="text-sm">⚡</span>
               <span className="text-xs font-medium text-amber-400">1,250 XP</span>
+            </div>
+            <div className="flex items-center gap-1 border-r border-white/10 pr-2 mr-2">
+              <LanguageToggle />
+              <ThemeToggle />
             </div>
             <button className="relative p-2 rounded-lg text-muted-foreground hover:text-white hover:bg-white/5 transition-colors">
               <Bell className="w-5 h-5" />

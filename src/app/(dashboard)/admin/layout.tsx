@@ -33,6 +33,8 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
+import { ThemeToggle } from "@/components/layout/ThemeToggle";
+import { LanguageToggle } from "@/components/layout/LanguageToggle";
 
 const adminNav = [
   { name: "Tableau de bord", href: "/admin", icon: Home },
@@ -187,6 +189,10 @@ export default function AdminLayout({
             </div>
           </div>
           <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1 border-r border-white/10 pr-2 mr-2">
+              <LanguageToggle />
+              <ThemeToggle />
+            </div>
             <button className="relative p-2 rounded-lg text-muted-foreground hover:text-white hover:bg-white/5 transition-colors">
               <Bell className="w-5 h-5" />
               <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-red-500" />

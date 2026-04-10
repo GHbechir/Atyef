@@ -1,0 +1,34 @@
+src/components/tools/MidiPlayer.tsx(491,15): error TS2322: Type '(val: number[]) => void' is not assignable to type '(value: number | readonly number[], eventDetails: SliderRootChangeEventDetails) => void'.
+  Types of parameters 'val' and 'value' are incompatible.
+    Type 'number | readonly number[]' is not assignable to type 'number[]'.
+      Type 'number' is not assignable to type 'number[]'.
+src/components/tools/MidiPlayer.tsx(506,13): error TS2322: Type '(val: number[]) => void' is not assignable to type '(value: number | readonly number[], eventDetails: SliderRootChangeEventDetails) => void'.
+  Types of parameters 'val' and 'value' are incompatible.
+    Type 'number | readonly number[]' is not assignable to type 'number[]'.
+      Type 'number' is not assignable to type 'number[]'.
+src/components/tools/ScalesReference.tsx(157,13): error TS2322: Type '(val: number[]) => void' is not assignable to type '(value: number | readonly number[], eventDetails: SliderRootChangeEventDetails) => void'.
+  Types of parameters 'val' and 'value' are incompatible.
+    Type 'number | readonly number[]' is not assignable to type 'number[]'.
+      Type 'number' is not assignable to type 'number[]'.
+src/components/tools/SheetMusicViewer.tsx(783,39): error TS2322: Type '(key: string) => void' is not assignable to type '(value: string | null, eventDetails: SelectRootChangeEventDetails) => void'.
+  Types of parameters 'key' and 'value' are incompatible.
+    Type 'string | null' is not assignable to type 'string'.
+      Type 'null' is not assignable to type 'string'.
+src/components/tools/SheetMusicViewer.tsx(866,13): error TS2322: Type '(val: number[]) => void' is not assignable to type '(value: number | readonly number[], eventDetails: SliderRootChangeEventDetails) => void'.
+  Types of parameters 'val' and 'value' are incompatible.
+    Type 'number | readonly number[]' is not assignable to type 'number[]'.
+      Type 'number' is not assignable to type 'number[]'.
+src/components/tools/SheetMusicViewer.tsx(880,13): error TS2322: Type '(val: number[]) => void' is not assignable to type '(value: number | readonly number[], eventDetails: SliderRootChangeEventDetails) => void'.
+  Types of parameters 'val' and 'value' are incompatible.
+    Type 'number | readonly number[]' is not assignable to type 'number[]'.
+      Type 'number' is not assignable to type 'number[]'.
+src/components/tools/VirtualPiano.tsx(213,13): error TS2322: Type '(val: number[]) => void' is not assignable to type '(value: number | readonly number[], eventDetails: SliderRootChangeEventDetails) => void'.
+  Types of parameters 'val' and 'value' are incompatible.
+    Type 'number | readonly number[]' is not assignable to type 'number[]'.
+      Type 'number' is not assignable to type 'number[]'.
+src/lib/mock-data.ts(212,5): error TS2322: Type '"ORIENTAL"' is not assignable to type 'CourseStyle'.
+src/lib/mock-data.ts(225,5): error TS2322: Type '"ORIENTAL"' is not assignable to type 'CourseStyle'.
+src/lib/mock-data.ts(238,5): error TS2322: Type '"ORIENTAL"' is not assignable to type 'CourseStyle'.
+src/lib/mock-data.ts(251,5): error TS2322: Type '"ORIENTAL"' is not assignable to type 'CourseStyle'.
+src/lib/mock-data.ts(264,5): error TS2322: Type '"ORIENTAL"' is not assignable to type 'CourseStyle'.
+src/lib/mock-data.ts(277,5): error TS2322: Type '"ORIENTAL"' is not assignable to type 'CourseStyle'.

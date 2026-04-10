@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Outfit, JetBrains_Mono } from "next/font/google";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
-// ThemeProvider removed for Next.js 16 / React 19 compatibility (avoids script tag injection)
+import { ThemeProvider } from "@/components/theme-provider";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import "./globals.css";
 
@@ -62,12 +62,14 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col bg-background text-foreground transition-colors duration-300">
-        <LanguageProvider>
-          <TooltipProvider>
-            {children}
-            <Toaster richColors position="bottom-right" />
-          </TooltipProvider>
-        </LanguageProvider>
+        <ThemeProvider defaultTheme="dark" storageKey="atyef-theme">
+          <LanguageProvider>
+            <TooltipProvider>
+              {children}
+              <Toaster richColors position="bottom-right" />
+            </TooltipProvider>
+          </LanguageProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

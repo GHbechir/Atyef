@@ -11,6 +11,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { ThemeToggle } from "@/components/layout/ThemeToggle";
+import { LanguageToggle } from "@/components/layout/LanguageToggle";
 
 const navLinks = [
   { name: "Accueil", href: "/" },
@@ -74,6 +76,10 @@ export function Navbar() {
 
           {/* Desktop Auth Buttons */}
           <div className="hidden lg:flex items-center gap-3">
+            <div className="flex items-center gap-1 mr-2 border-r border-white/10 pr-4">
+              <LanguageToggle />
+              <ThemeToggle />
+            </div>
             <Link href="/sign-in">
               <Button variant="ghost" className="text-sm font-medium text-muted-foreground hover:text-white">
                 Se connecter
@@ -118,6 +124,10 @@ export function Navbar() {
                   {link.name}
                 </Link>
               ))}
+            </div>
+            <div className="flex items-center gap-2 pt-4 justify-center border-t border-white/10">
+              <LanguageToggle />
+              <ThemeToggle />
             </div>
             <div className="flex flex-col gap-2 pt-4 border-t border-white/10">
               <Link href="/sign-in" onClick={() => setIsMobileMenuOpen(false)}>
