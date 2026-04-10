@@ -19,6 +19,10 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import confetti from "canvas-confetti";
+import { PeerActivity } from "@/components/social/PeerActivity";
+import { LessonComments } from "@/components/social/LessonComments";
+import { ShareProgressModal } from "@/components/social/ShareProgressModal";
+import { FeedbackBanner } from "@/components/social/FeedbackBanner";
 
 // Store & Tools
 import { useLessonStore } from "@/store/useLessonStore";
@@ -38,6 +42,7 @@ export default function LessonPlayerPage() {
   const [lesson, setLesson] = useState<any>(null);
   const [completed, setCompleted] = useState(false);
   const [showRecorder, setShowRecorder] = useState(false);
+  const [showShareModal, setShowShareModal] = useState(false);
 
   useEffect(() => {
     // In a real app, fetch from DB
@@ -87,6 +92,10 @@ export default function LessonPlayerPage() {
         requestAnimationFrame(frame);
       }
     }());
+
+    setTimeout(() => {
+      setShowShareModal(true);
+    }, 2500);
   };
 
   if (!course || !lesson) return null;
@@ -142,7 +151,8 @@ export default function LessonPlayerPage() {
         <div className="flex-1 flex flex-col overflow-y-auto relative bg-black/5 dark:bg-black/20">
           
           {/* Video Section (Cinematic Theater Mode) */}
-          <div className="w-full bg-black shrink-0 relative group border-b border-border/10">
+          <div className="w-full bg-black shrink-0 relative group border-b border-border/10 flex justify-center">
+            <FeedbackBanner />
             <video 
               src={lesson.videoUrl} 
               controls 
@@ -157,6 +167,10 @@ export default function LessonPlayerPage() {
 
           {/* Interactive Tools Section */}
           <div className="flex-1 flex flex-col p-4 lg:p-6 bg-background">
+            <div className="mb-6">
+               <PeerActivity />
+            </div>
+
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-bold font-heading flex items-center gap-2">
                 <Disc3 className="w-5 h-5 text-primary" />
@@ -194,6 +208,10 @@ export default function LessonPlayerPage() {
                 )}
               </AnimatePresence>
             </div>
+            
+            <div className="mt-8">
+              <LessonComments />
+            </div>
           </div>
         </div>
 
@@ -225,6 +243,13 @@ export default function LessonPlayerPage() {
            </ScrollArea>
         </div>
       </div>
+      
+      <ShareProgressModal 
+        isOpen={showShareModal} 
+        onClose={() => setShowShareModal(false)}
+        lessonName={lesson.title}
+        instrument={course.instrument.name}
+      />
     </div>
   );
 }
