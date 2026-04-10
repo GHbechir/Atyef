@@ -12,6 +12,7 @@ import { AudioRecorder } from "@/components/tools/AudioRecorder";
 import { ScalesReference } from "@/components/tools/ScalesReference";
 import { MidiPlayer, DEMO_SONGS } from "@/components/tools/MidiPlayer";
 import { GuitarTabPlayer } from "@/components/tools/GuitarTabPlayer";
+import { SheetMusicViewer } from "@/components/tools/SheetMusicViewer";
 
 export default function ToolsPage() {
   return (
@@ -20,7 +21,7 @@ export default function ToolsPage() {
         <div className="flex items-center gap-3 mb-1">
           <h1 className="text-2xl font-bold font-heading text-white">Outils</h1>
           <Badge variant="outline" className="text-xs border-purple-500/30 text-purple-300 bg-purple-500/10">
-            9 outils
+            10 outils
           </Badge>
         </div>
         <p className="text-muted-foreground text-sm">
@@ -35,6 +36,12 @@ export default function ToolsPage() {
             className="data-[state=active]:bg-primary/20 data-[state=active]:text-primary text-sm"
           >
             🎸 Tablature
+          </TabsTrigger>
+          <TabsTrigger
+            value="sheet-music"
+            className="data-[state=active]:bg-primary/20 data-[state=active]:text-primary text-sm"
+          >
+            📜 Partition
           </TabsTrigger>
           <TabsTrigger
             value="piano"
@@ -89,6 +96,12 @@ export default function ToolsPage() {
         <TabsContent value="guitar-tab" className="mt-6">
           <div className="max-w-5xl mx-auto">
             <GuitarTabPlayer />
+          </div>
+        </TabsContent>
+
+        <TabsContent value="sheet-music" className="mt-6">
+          <div className="max-w-5xl mx-auto">
+            <SheetMusicViewer />
           </div>
         </TabsContent>
 
