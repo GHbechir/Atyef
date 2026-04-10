@@ -155,15 +155,17 @@ model Course {
 }
 
 model Lesson {
-  id          String   @id @default(cuid())
-  title       String
-  description String?
-  videoUrl    String?
-  duration    Int      @default(0) // duration in seconds
-  sortOrder   Int      @default(0)
-  isFree      Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id            String   @id @default(cuid())
+  title         String
+  description   String?
+  videoUrl      String?
+  midiUrl       String?  // MIDI file URL for practice
+  sheetMusicUrl String?  // PDF or MusicXML partition
+  duration      Int      @default(0) // duration in seconds
+  sortOrder     Int      @default(0)
+  isFree        Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
   // Relations
   courseId   String

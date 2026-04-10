@@ -18,6 +18,8 @@ import {
   Menu,
   Music,
   Library,
+  FileMusic,
+  Heart,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -35,8 +37,10 @@ import { Input } from "@/components/ui/input";
 const learnerNav = [
   { name: "Tableau de bord", href: "/learn", icon: Home },
   { name: "Mes cours", href: "/learn/courses", icon: BookOpen },
+  { name: "Partitions", href: "/learn/partitions", icon: FileMusic },
   { name: "Chansons", href: "/learn/songs", icon: Music },
   { name: "Outils", href: "/learn/tools", icon: Wrench },
+  { name: "Mes favoris", href: "/learn/favorites", icon: Heart },
   { name: "Mon profil", href: "/learn/profile", icon: User },
 ];
 

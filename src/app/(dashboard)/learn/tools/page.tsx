@@ -9,6 +9,8 @@ import { VirtualPiano } from "@/components/tools/VirtualPiano";
 import { DrumMachine } from "@/components/tools/DrumMachine";
 import { ChordDictionary } from "@/components/tools/ChordDictionary";
 import { AudioRecorder } from "@/components/tools/AudioRecorder";
+import { ScalesReference } from "@/components/tools/ScalesReference";
+import { MidiPlayer, DEMO_SONGS } from "@/components/tools/MidiPlayer";
 
 export default function ToolsPage() {
   return (
@@ -17,11 +19,11 @@ export default function ToolsPage() {
         <div className="flex items-center gap-3 mb-1">
           <h1 className="text-2xl font-bold font-heading text-white">Outils</h1>
           <Badge variant="outline" className="text-xs border-purple-500/30 text-purple-300 bg-purple-500/10">
-            6 outils
+            8 outils
           </Badge>
         </div>
         <p className="text-muted-foreground text-sm">
-          Piano virtuel, boîte à rythmes, dictionnaire d&apos;accords, enregistreur et plus encore.
+          Piano virtuel, lecteur MIDI, boîte à rythmes, gammes, dictionnaire d&apos;accords, enregistreur et plus.
         </p>
       </motion.div>
 
@@ -32,6 +34,18 @@ export default function ToolsPage() {
             className="data-[state=active]:bg-primary/20 data-[state=active]:text-primary text-sm"
           >
             🎹 Piano
+          </TabsTrigger>
+          <TabsTrigger
+            value="midi"
+            className="data-[state=active]:bg-primary/20 data-[state=active]:text-primary text-sm"
+          >
+            🎼 MIDI
+          </TabsTrigger>
+          <TabsTrigger
+            value="scales"
+            className="data-[state=active]:bg-primary/20 data-[state=active]:text-primary text-sm"
+          >
+            🎵 Gammes
           </TabsTrigger>
           <TabsTrigger
             value="drums"
@@ -55,7 +69,7 @@ export default function ToolsPage() {
             value="metronome"
             className="data-[state=active]:bg-primary/20 data-[state=active]:text-primary text-sm"
           >
-            🎵 Métronome
+            ⏱️ Métronome
           </TabsTrigger>
           <TabsTrigger
             value="tuner"
@@ -68,6 +82,33 @@ export default function ToolsPage() {
         <TabsContent value="piano" className="mt-6">
           <div className="max-w-3xl mx-auto">
             <VirtualPiano />
+          </div>
+        </TabsContent>
+
+        <TabsContent value="midi" className="mt-6">
+          <div className="max-w-4xl mx-auto space-y-6">
+            <p className="text-sm text-muted-foreground text-center mb-4">
+              Sélectionnez un morceau de démonstration ou connectez un clavier MIDI USB pour le mode pratique
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
+              {Object.entries(DEMO_SONGS).map(([key, song]) => (
+                <div key={key} className="p-3 rounded-xl bg-white/5 border border-white/10 text-center">
+                  <p className="text-sm font-medium text-white truncate">{song.title}</p>
+                  <p className="text-xs text-muted-foreground">{song.bpm} BPM • {song.notes.length} notes</p>
+                </div>
+              ))}
+            </div>
+            <MidiPlayer
+              notes={DEMO_SONGS["fur-elise"].notes}
+              title={DEMO_SONGS["fur-elise"].title}
+              bpm={DEMO_SONGS["fur-elise"].bpm}
+            />
+          </div>
+        </TabsContent>
+
+        <TabsContent value="scales" className="mt-6">
+          <div className="max-w-3xl mx-auto">
+            <ScalesReference />
           </div>
         </TabsContent>
 
