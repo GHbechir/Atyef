@@ -18,6 +18,7 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { LEARNER_STATS, MOCK_ENROLLED_COURSES, DEMO_LESSONS, INSTRUMENTS } from "@/lib/mock-data";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 function StatCard({
   icon: Icon,
@@ -60,6 +61,7 @@ function StatCard({
 
 export default function LearnerDashboard() {
   const stats = LEARNER_STATS;
+  const { t } = useLanguage();
 
   return (
     <div className="space-y-8">
@@ -69,10 +71,10 @@ export default function LearnerDashboard() {
         animate={{ opacity: 1, y: 0 }}
       >
         <h1 className="text-2xl sm:text-3xl font-bold font-heading text-white mb-1">
-          Bienvenue, Marie 👋
+          {t("welcome")}, Marie 👋
         </h1>
         <p className="text-muted-foreground">
-          Continuez votre apprentissage là où vous vous êtes arrêtée.
+          {t("continue_learning")}
         </p>
       </motion.div>
 
@@ -80,15 +82,15 @@ export default function LearnerDashboard() {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
           icon={BookOpen}
-          label="Cours en cours"
+          label={t("courses_in_progress") as string}
           value={String(stats.totalCourses)}
-          subtitle="+1 cette semaine"
+          subtitle="+1 this week" // Not localized yet, but we will keep it simple
           color="bg-purple-500/20"
           delay={0}
         />
         <StatCard
           icon={CheckCircle2}
-          label="Leçons terminées"
+          label={t("lessons_completed") as string}
           value={String(stats.completedLessons)}
           subtitle="+3"
           color="bg-emerald-500/20"
@@ -96,15 +98,15 @@ export default function LearnerDashboard() {
         />
         <StatCard
           icon={Clock}
-          label="Temps total"
+          label={t("total_time") as string}
           value={`${Math.round(stats.totalWatchTime / 60)}h`}
           color="bg-blue-500/20"
           delay={0.1}
         />
         <StatCard
           icon={Flame}
-          label="Streak actuel"
-          value={`${stats.currentStreak} jours`}
+          label={t("current_streak") as string}
+          value={`${stats.currentStreak} ${t("days")}`}
           subtitle="🔥"
           color="bg-amber-500/20"
           delay={0.15}
@@ -119,11 +121,11 @@ export default function LearnerDashboard() {
       >
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-bold font-heading text-white">
-            Reprendre l&apos;apprentissage
+            {t("resume_learning")}
           </h2>
           <Link href="/learn/courses">
             <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-white group">
-              Voir tout
+              {t("see_all")}
               <ChevronRight className="w-4 h-4 ml-1 group-hover:translate-x-0.5 transition-transform" />
             </Button>
           </Link>
@@ -150,19 +152,19 @@ export default function LearnerDashboard() {
                 {MOCK_ENROLLED_COURSES[0].title}
               </h3>
               <p className="text-sm text-muted-foreground mb-4 line-clamp-1">
-                Prochaine leçon : Premiers Accords Majeurs
+                {t("next_lesson")} : Premiers Accords Majeurs
               </p>
               <div className="flex items-center gap-4">
                 <div className="flex-1">
                   <div className="flex items-center justify-between mb-1.5">
-                    <span className="text-xs text-muted-foreground">Progression</span>
+                    <span className="text-xs text-muted-foreground">{t("progress")}</span>
                     <span className="text-xs font-medium text-white">{MOCK_ENROLLED_COURSES[0].progress}%</span>
                   </div>
                   <Progress value={MOCK_ENROLLED_COURSES[0].progress || 0} className="h-2" />
                 </div>
                 <Link href="/learn/courses/1/lessons/l3">
                   <Button size="sm" className="gradient-bg text-white hover:opacity-90 border-0 group shrink-0">
-                    Continuer
+                    {t("continue_btn")}
                     <Play className="w-3.5 h-3.5 ml-1.5" />
                   </Button>
                 </Link>
@@ -183,7 +185,7 @@ export default function LearnerDashboard() {
                 {course.title}
               </h3>
               <div className="flex items-center justify-between mb-1.5">
-                <span className="text-xs text-muted-foreground">Progression</span>
+                <span className="text-xs text-muted-foreground">{t("progress")}</span>
                 <span className="text-xs font-medium text-white">{course.progress}%</span>
               </div>
               <Progress value={course.progress || 0} className="h-1.5" />
@@ -204,12 +206,12 @@ export default function LearnerDashboard() {
             <Target className="w-5 h-5 text-amber-400" />
           </div>
           <div>
-            <h3 className="text-sm font-semibold text-white">Objectif de la semaine</h3>
-            <p className="text-xs text-muted-foreground">Complétez 5 leçons cette semaine</p>
+            <h3 className="text-sm font-semibold text-white">{t("weekly_goal")}</h3>
+            <p className="text-xs text-muted-foreground">{t("complete_lessons_goal")}</p>
           </div>
         </div>
         <div className="flex items-center justify-between mb-2">
-          <span className="text-xs text-muted-foreground">3/5 leçons</span>
+          <span className="text-xs text-muted-foreground">3/5 {t("lessons")}</span>
           <span className="text-xs font-medium text-amber-400">60%</span>
         </div>
         <Progress value={60} className="h-2" />
@@ -222,7 +224,7 @@ export default function LearnerDashboard() {
         transition={{ delay: 0.35 }}
       >
         <h2 className="text-lg font-bold font-heading text-white mb-4">
-          Explorer les instruments
+          {t("explore_instruments")}
         </h2>
         <div className="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-10 gap-3">
           {INSTRUMENTS.map((instrument) => (

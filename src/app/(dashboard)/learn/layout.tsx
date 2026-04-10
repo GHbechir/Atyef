@@ -35,15 +35,16 @@ import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { LanguageToggle } from "@/components/layout/LanguageToggle";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-const learnerNav = [
-  { name: "Tableau de bord", href: "/learn", icon: Home },
-  { name: "Mes cours", href: "/learn/courses", icon: BookOpen },
-  { name: "Partitions", href: "/learn/partitions", icon: FileMusic },
-  { name: "Chansons", href: "/learn/songs", icon: Music },
-  { name: "Outils", href: "/learn/tools", icon: Wrench },
-  { name: "Mes favoris", href: "/learn/favorites", icon: Heart },
-  { name: "Mon profil", href: "/learn/profile", icon: User },
+const learnerNavKeys = [
+  { key: "dashboard", href: "/learn", icon: Home },
+  { key: "my_courses", href: "/learn/courses", icon: BookOpen },
+  { key: "sheet_music", href: "/learn/partitions", icon: FileMusic },
+  { key: "songs", href: "/learn/songs", icon: Music },
+  { key: "tools_page", href: "/learn/tools", icon: Wrench },
+  { key: "my_favorites", href: "/learn/favorites", icon: Heart },
+  { key: "my_profile", href: "/learn/profile", icon: User },
 ];
 
 export default function LearnerLayout({
@@ -54,6 +55,7 @@ export default function LearnerLayout({
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
+  const { t } = useLanguage();
 
   const SidebarContent = () => (
     <div className="flex flex-col h-full">
@@ -78,7 +80,7 @@ export default function LearnerLayout({
         <div className="px-4 py-3">
           <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 w-fit">
             <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="text-xs font-medium text-emerald-400">Espace Apprenant</span>
+            <span className="text-xs font-medium text-emerald-400">{t("learner_space")}</span>
           </div>
         </div>
       )}
@@ -86,7 +88,7 @@ export default function LearnerLayout({
       {/* Navigation */}
       <ScrollArea className="flex-1 px-3 py-4">
         <nav className="space-y-1">
-          {learnerNav.map((item) => {
+          {learnerNavKeys.map((item) => {
             const isActive = pathname === item.href;
             return (
               <Link
@@ -104,7 +106,7 @@ export default function LearnerLayout({
                     isActive ? "text-emerald-400" : "text-muted-foreground group-hover:text-white"
                   }`}
                 />
-                {!collapsed && <span className="truncate">{item.name}</span>}
+                {!collapsed && <span className="truncate">{t(item.key as any)}</span>}
               </Link>
             );
           })}
@@ -116,14 +118,14 @@ export default function LearnerLayout({
             <div className="flex items-center gap-2 mb-2">
               <span className="text-2xl">🔥</span>
               <div>
-                <p className="text-sm font-bold text-white">5 jours</p>
-                <p className="text-[10px] text-muted-foreground">Série en cours</p>
+                <p className="text-sm font-bold text-white">5 {t("days")}</p>
+                <p className="text-[10px] text-muted-foreground">{t("streak_label")}</p>
               </div>
             </div>
             <div className="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
               <div className="h-full w-[71%] bg-gradient-to-r from-emerald-400 to-cyan-400 rounded-full" />
             </div>
-            <p className="text-[10px] text-muted-foreground mt-1">5/7 jours cette semaine</p>
+            <p className="text-[10px] text-muted-foreground mt-1">5/7 {t("days")} {t("this_week")}</p>
           </div>
         )}
       </ScrollArea>
@@ -215,7 +217,7 @@ export default function LearnerLayout({
             <div className="hidden sm:block relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               <Input
-                placeholder="Rechercher un cours..."
+                placeholder={t("search_course")}
                 className="pl-9 w-64 h-9 bg-white/5 border-white/10 text-white text-sm placeholder:text-muted-foreground"
               />
             </div>
