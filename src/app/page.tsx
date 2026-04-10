@@ -19,6 +19,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { useState, useEffect } from "react";
 import { Language } from "@/locales/types";
 
@@ -94,6 +95,9 @@ export default function Home() {
                 </button>
               ))}
             </div>
+            <div className="mr-2">
+              <ThemeToggle />
+            </div>
 
             <Link href="/sign-in">
               <Button variant="ghost" className="rounded-full font-medium text-white/80 hover:text-white hover:bg-white/10 text-sm h-10 px-5">
@@ -134,6 +138,10 @@ export default function Home() {
                 {t(item.key as any)}
               </Link>
             ))}
+            <div className="h-px bg-white/10 my-2" />
+            <div className="flex items-center justify-center py-2">
+              <ThemeToggle />
+            </div>
             <div className="h-px bg-white/10 my-2" />
             <Link href="/sign-in" onClick={() => setIsMobileMenuOpen(false)}>
               <Button variant="ghost" className="w-full text-white">

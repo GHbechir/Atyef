@@ -107,6 +107,44 @@
   --radius: 1rem; /* Apple Rounded Corners */
 }
 
+/* ===== Light Theme (Apple White) ===== */
+.light {
+  --background: oklch(0.98 0.005 280);
+  --foreground: oklch(0.12 0.005 280);
+  
+  --card: oklch(0.99 0.005 280);
+  --card-foreground: oklch(0.12 0.005 280);
+  
+  --popover: oklch(0.99 0.005 280);
+  --popover-foreground: oklch(0.12 0.005 280);
+  
+  --primary: oklch(0.12 0.005 280);
+  --primary-foreground: oklch(0.98 0.005 280);
+  
+  --secondary: oklch(0.93 0.015 280);
+  --secondary-foreground: oklch(0.12 0.005 280);
+  
+  --muted: oklch(0.95 0.01 280);
+  --muted-foreground: oklch(0.40 0.01 280);
+  
+  --accent: oklch(0.68 0.22 290);
+  --accent-foreground: oklch(0.98 0.005 280);
+  
+  --destructive: oklch(0.60 0.2 25);
+  --border: oklch(0.90 0.02 280);
+  --input: oklch(0.95 0.015 280);
+  --ring: oklch(0.68 0.22 290);
+  
+  --sidebar: oklch(0.98 0.005 280);
+  --sidebar-foreground: oklch(0.12 0.005 280);
+  --sidebar-primary: oklch(0.12 0.005 280);
+  --sidebar-primary-foreground: oklch(0.98 0.005 280);
+  --sidebar-accent: oklch(0.93 0.015 280);
+  --sidebar-accent-foreground: oklch(0.12 0.005 280);
+  --sidebar-border: oklch(0.90 0.02 280);
+  --sidebar-ring: oklch(0.68 0.22 290);
+}
+
 /* Fallback for components that explicitly check .dark */
 .dark {
   /* Inherit all root vars since we forced Root to dark */
