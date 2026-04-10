@@ -61,12 +61,32 @@ export default function LessonPlayerPage() {
 
   const handleComplete = () => {
     setCompleted(true);
-    confetti({
-      particleCount: 150,
-      spread: 70,
-      origin: { y: 0.6 },
-      colors: ['#8b5cf6', '#3b82f6', '#10b981']
-    });
+    // Custom music notes confetti using canvas-confetti shapes support
+    const duration = 2000;
+    const end = Date.now() + duration;
+
+    (function frame() {
+      // ♩ ♪ ♫ ♬ simple string shapes are usually not supported natively in all canvas-confetti, 
+      // but we throw standard colorful shapes with higher density for immersion.
+      confetti({
+        particleCount: 7,
+        angle: 60,
+        spread: 55,
+        origin: { x: 0 },
+        colors: ['#8b5cf6', '#3b82f6', '#10b981', '#f59e0b']
+      });
+      confetti({
+        particleCount: 7,
+        angle: 120,
+        spread: 55,
+        origin: { x: 1 },
+        colors: ['#8b5cf6', '#3b82f6', '#10b981', '#f59e0b']
+      });
+
+      if (Date.now() < end) {
+        requestAnimationFrame(frame);
+      }
+    }());
   };
 
   if (!course || !lesson) return null;
@@ -101,10 +121,18 @@ export default function LessonPlayerPage() {
           <Button 
             onClick={handleComplete} 
             variant={completed ? "secondary" : "default"} 
-            className={`h-8 text-xs gap-1.5 ${completed ? "bg-emerald-500/10 text-emerald-500 hover:bg-emerald-500/20" : "bg-primary text-primary-foreground"}`}
+            className={`h-8 text-xs gap-1.5 transition-all duration-300 ${completed ? "bg-emerald-500/10 text-emerald-500 hover:bg-emerald-500/20" : "gradient-bg text-white hover:opacity-90 glow-accent shadow-accent/20"}`}
           >
-            <CheckCircle2 className="w-3.5 h-3.5" />
-            {completed ? "Terminé" : "Marquer comme terminé"}
+            {completed ? (
+              <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="flex items-center gap-1.5">
+               <CheckCircle2 className="w-3.5 h-3.5" /> Terminé
+              </motion.div>
+            ) : (
+              <>
+                <CheckCircle2 className="w-3.5 h-3.5" />
+                Marquer comme terminé
+              </>
+            )}
           </Button>
         </div>
       </div>
@@ -113,14 +141,18 @@ export default function LessonPlayerPage() {
         {/* Main Workspace */}
         <div className="flex-1 flex flex-col overflow-y-auto relative bg-black/5 dark:bg-black/20">
           
-          {/* Video Section (Netflix Style) */}
-          <div className="w-full bg-black shrink-0 relative group">
+          {/* Video Section (Cinematic Theater Mode) */}
+          <div className="w-full bg-black shrink-0 relative group border-b border-border/10">
             <video 
               src={lesson.videoUrl} 
               controls 
-              className="w-full aspect-video max-h-[40vh] object-contain bg-black"
+              className="w-full h-[60vh] object-cover bg-black"
             />
-            {/* Cinematic Overlay when paused could go here */}
+            {/* Custom Time Badge */}
+            <div className="absolute top-4 left-4 bg-background/40 backdrop-blur-md px-3 py-1.5 rounded-full border border-border/50 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+               <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+               <span className="text-xs font-medium text-white/90">Direct • Reste {lesson.duration}</span>
+            </div>
           </div>
 
           {/* Interactive Tools Section */}

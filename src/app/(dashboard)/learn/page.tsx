@@ -103,14 +103,21 @@ export default function LearnerDashboard() {
           color="bg-gradient-to-br from-blue-500/30 to-blue-500/10 border border-blue-500/20"
           delay={0.1}
         />
-        <StatCard
-          icon={Flame}
-          label={t("current_streak") as string}
-          value={`${stats.currentStreak} ${t("days")}`}
-          subtitle="🔥"
-          color="bg-gradient-to-br from-amber-500/30 to-amber-500/10 border border-amber-500/20"
-          delay={0.15}
-        />
+        <div className="relative group">
+          {stats.currentStreak >= 5 && (
+            <div className="absolute inset-0 bg-amber-500/20 rounded-2xl blur-xl transition-all duration-500 group-hover:bg-amber-500/30" />
+          )}
+          <StatCard
+            icon={Flame}
+            label={t("current_streak") as string}
+            value={`${stats.currentStreak} ${t("days")}`}
+            subtitle={stats.currentStreak >= 5 ? "🔥 On Fire!" : "🔥"}
+            color={stats.currentStreak >= 5 
+              ? "bg-gradient-to-br from-amber-400 to-orange-500 border border-amber-400/50 shadow-lg shadow-amber-500/20" 
+              : "bg-gradient-to-br from-amber-500/30 to-amber-500/10 border border-amber-500/20"}
+            delay={0.15}
+          />
+        </div>
       </div>
 
       {/* Continue Learning */}
@@ -223,7 +230,39 @@ export default function LearnerDashboard() {
           ))}
         </div>
       </motion.div>
-
+      {/* Rewards & Badges (Gamification) */}
+      <motion.div
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.32 }}
+      >
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-lg font-semibold font-heading text-foreground">
+            Mes Badges
+          </h2>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          {[
+            { id: 1, name: "Débutant", icon: "🌱", desc: "1ère leçon", unlocked: true },
+            { id: 2, name: "Mélodiste", icon: "🥉", desc: "5 leçons", unlocked: true },
+            { id: 3, name: "Harmoniste", icon: "🥈", desc: "10 leçons", unlocked: false },
+            { id: 4, name: "Virtuose", icon: "🥇", desc: "25 leçons", unlocked: false },
+          ].map((badge) => (
+            <div 
+              key={badge.id} 
+              className={`stat-card p-4 text-center flex flex-col items-center gap-2 transition-all duration-300 ${badge.unlocked ? 'hover:scale-105 border-accent/20 bg-accent/5' : 'opacity-60 grayscale'}`}
+            >
+              <div className={`w-12 h-12 rounded-full flex items-center justify-center text-2xl ${badge.unlocked ? 'bg-gradient-to-br from-accent/20 to-purple-500/20 shadow-lg shadow-accent/10' : 'bg-foreground/5'}`}>
+                {badge.icon}
+              </div>
+              <div>
+                <p className={`text-sm font-bold ${badge.unlocked ? 'text-accent' : 'text-foreground'}`}>{badge.name}</p>
+                <p className="text-[10px] text-muted-foreground">{badge.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </motion.div>
       {/* Explore Instruments */}
       <motion.div
         initial={{ opacity: 0, y: 15 }}

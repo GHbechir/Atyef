@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -20,6 +21,8 @@ import {
   Library,
   FileMusic,
   Heart,
+  Gift,
+  Zap,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -36,6 +39,8 @@ import { Input } from "@/components/ui/input";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { LanguageToggle } from "@/components/layout/LanguageToggle";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { ReferralBanner } from "@/components/referral/ReferralBanner";
+import { XPBar } from "@/components/gamification/XPBar";
 
 const learnerNavKeys = [
   { key: "dashboard", href: "/learn", icon: Home },
@@ -45,6 +50,7 @@ const learnerNavKeys = [
   { key: "tools_page", href: "/learn/tools", icon: Wrench },
   { key: "my_favorites", href: "/learn/favorites", icon: Heart },
   { key: "my_profile", href: "/learn/profile", icon: User },
+  { key: "referral", href: "/learn/referral", icon: Gift, highlight: true },
 ];
 
 export default function LearnerLayout({
@@ -90,6 +96,7 @@ export default function LearnerLayout({
         <nav className="space-y-1">
           {learnerNavKeys.map((item) => {
             const isActive = pathname === item.href;
+            const isHighlight = (item as any).highlight;
             return (
               <Link
                 key={item.href}
@@ -98,19 +105,31 @@ export default function LearnerLayout({
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 group ${
                   isActive
                     ? "bg-emerald-500/15 text-emerald-400"
-                    : "text-muted-foreground hover:text-white hover:bg-white/5"
+                    : isHighlight
+                    ? "text-accent bg-accent/5 hover:bg-accent/10"
+                    : "text-muted-foreground hover:text-foreground hover:bg-foreground/5"
                 }`}
               >
                 <item.icon
                   className={`w-4.5 h-4.5 shrink-0 ${
-                    isActive ? "text-emerald-400" : "text-muted-foreground group-hover:text-white"
+                    isActive ? "text-emerald-400" : isHighlight ? "text-accent" : "text-muted-foreground group-hover:text-foreground"
                   }`}
                 />
-                {!collapsed && <span className="truncate">{t(item.key as any)}</span>}
+                {!collapsed && (
+                  <span className="truncate flex items-center gap-2">
+                    {item.key === "referral" ? "Parrainage" : t(item.key as any)}
+                    {isHighlight && !isActive && (
+                      <span className="text-[9px] font-bold bg-accent/15 text-accent px-1.5 py-0.5 rounded-full">Nouveau</span>
+                    )}
+                  </span>
+                )}
               </Link>
             );
           })}
         </nav>
+
+        {/* Referral Banner */}
+        {!collapsed && <ReferralBanner />}
 
         {/* Streak Widget */}
         {!collapsed && (
@@ -218,14 +237,14 @@ export default function LearnerLayout({
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               <Input
                 placeholder={t("search_course")}
-                className="pl-9 w-64 h-9 bg-white/5 border-white/10 text-white text-sm placeholder:text-muted-foreground"
+                className="pl-9 w-64 h-9 bg-foreground/5 border-border text-foreground text-sm placeholder:text-muted-foreground"
               />
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <div className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 mr-2">
-              <span className="text-sm">⚡</span>
-              <span className="text-xs font-medium text-amber-400">1,250 XP</span>
+            {/* XP Bar */}
+            <div className="hidden md:flex items-center">
+              <XPBar currentXP={320} maxXP={500} level={4} />
             </div>
             <div className="flex items-center gap-1 border-r border-white/10 pr-2 mr-2">
               <LanguageToggle />
@@ -238,12 +257,21 @@ export default function LearnerLayout({
           </div>
         </header>
 
-        <main className="flex-1 overflow-y-auto">
-          <div className="p-4 lg:p-8 max-w-7xl mx-auto w-full">
-            {children}
-          </div>
-        </main>
-      </div>
+          <main className="flex-1 overflow-x-hidden overflow-y-auto bg-background p-4 lg:p-8">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={pathname}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.3 }}
+                className="max-w-7xl mx-auto"
+              >
+                {children}
+              </motion.div>
+            </AnimatePresence>
+          </main>
+        </div>
     </div>
   );
 }
