@@ -49,13 +49,13 @@ export function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 group">
             <div className="relative">
-              <div className="w-10 h-10 rounded-xl gradient-bg flex items-center justify-center transition-transform group-hover:scale-110 duration-300">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl gradient-bg flex items-center justify-center transition-transform group-hover:scale-110 duration-300">
                 <Music2 className="w-5 h-5 text-white" />
               </div>
-              <div className="absolute inset-0 w-10 h-10 rounded-xl gradient-bg opacity-0 group-hover:opacity-40 blur-lg transition-opacity duration-300" />
+              <div className="absolute inset-0 w-9 h-9 sm:w-10 sm:h-10 rounded-xl gradient-bg opacity-0 group-hover:opacity-40 blur-lg transition-opacity duration-300" />
             </div>
             <span className="text-xl font-bold font-heading tracking-tight">
-              <span className="font-bold text-xl tracking-tight">Aty<span className="gradient-text-purple">ef</span></span>
+              <span className="font-bold text-lg sm:text-xl tracking-tight">Aty<span className="gradient-text-purple">ef</span></span>
             </span>
           </Link>
 
@@ -127,7 +127,7 @@ export function Navbar() {
                 </Link>
               ))}
             </div>
-            <div className="flex items-center gap-2 pt-4 justify-center border-t border-white/10">
+            <div className="grid grid-cols-2 gap-2 pt-4 justify-center border-t border-border">
               <LanguageToggle />
               <ThemeToggle />
             </div>

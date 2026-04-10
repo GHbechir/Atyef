@@ -42,7 +42,7 @@ export default function PricingPage() {
           >
             Tarifs transparents
           </Badge>
-          <h1 className="text-4xl sm:text-5xl font-bold font-heading mb-4">
+          <h1 className="text-3xl sm:text-5xl font-bold font-heading mb-4">
             Investissez dans votre{" "}
             <span className="gradient-text">passion</span>
           </h1>
@@ -82,7 +82,7 @@ export default function PricingPage() {
                 <p className="text-sm text-muted-foreground">{plan.description}</p>
               </div>
               <div className="flex items-baseline gap-1 mb-2">
-                <span className="text-5xl font-bold font-heading text-foreground">
+                <span className="text-4xl sm:text-5xl font-bold font-heading text-foreground">
                   {plan.price.toFixed(2).replace(".", ",")} €
                 </span>
                 <span className="text-muted-foreground text-lg">/ {plan.period}</span>

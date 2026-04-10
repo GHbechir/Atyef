@@ -141,8 +141,8 @@ export default function LearnerLayout({
               </Avatar>
               {!collapsed && (
                 <div className="flex-1 text-left min-w-0">
-                  <p className="text-sm font-medium text-white truncate">Apprenant</p>
-                  <p className="text-xs text-emerald-400">Piano</p>
+                  <p className="text-sm font-medium text-foreground truncate">Apprenant</p>
+                  <p className="text-xs text-emerald-500">Piano</p>
                 </div>
               )}
           </DropdownMenuTrigger>
@@ -180,7 +180,7 @@ export default function LearnerLayout({
         <SidebarContent />
         <button
           onClick={() => setCollapsed(!collapsed)}
-          className="absolute top-20 -right-3 w-6 h-6 rounded-full bg-[oklch(0.2_0.02_280)] border border-white/10 flex items-center justify-center text-muted-foreground hover:text-white hover:bg-[oklch(0.25_0.02_280)] transition-colors z-10"
+          className="absolute top-20 -right-3 w-6 h-6 rounded-full bg-background border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-sidebar-accent transition-colors z-10 shadow-sm"
           style={{ left: collapsed ? "56px" : "248px" }}
         >
           {collapsed ? <ChevronRight className="w-3 h-3" /> : <ChevronLeft className="w-3 h-3" />}
@@ -197,9 +197,9 @@ export default function LearnerLayout({
 
       {/* Mobile Sidebar */}
       <aside
-        className={`lg:hidden fixed top-0 left-0 bottom-0 w-64 bg-[oklch(0.13_0.015_280)] border-r border-white/5 z-50 transition-transform duration-300 ${
+        className={`lg:hidden fixed top-0 left-0 bottom-0 w-72 bg-sidebar border-r border-sidebar-border z-50 transition-transform duration-300 ${
           mobileOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
+        } shadow-2xl`}
       >
         <SidebarContent />
       </aside>
@@ -209,10 +209,10 @@ export default function LearnerLayout({
         <header className="h-16 border-b border-white/5 flex items-center justify-between px-4 lg:px-6 shrink-0 bg-background/80 backdrop-blur-sm">
           <div className="flex items-center gap-4">
             <button
-              className="lg:hidden p-2 rounded-lg text-muted-foreground hover:text-white hover:bg-white/5"
+              className="lg:hidden p-2.5 rounded-xl text-muted-foreground hover:text-foreground hover:bg-sidebar-accent transition-colors border border-border/50"
               onClick={() => setMobileOpen(true)}
             >
-              <Menu className="w-5 h-5" />
+              <Menu className="w-6 h-6" />
             </button>
             <div className="hidden sm:block relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />

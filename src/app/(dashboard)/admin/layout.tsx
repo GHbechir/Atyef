@@ -175,15 +175,15 @@ export default function AdminLayout({
 
       {mobileOpen && <div className="lg:hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-40" onClick={() => setMobileOpen(false)} />}
 
-      <aside className={`lg:hidden fixed top-0 left-0 bottom-0 w-64 bg-sidebar border-r border-sidebar-border z-50 transition-transform duration-300 ${mobileOpen ? "translate-x-0" : "-translate-x-full"}`}>
+      <aside className={`lg:hidden fixed top-0 left-0 bottom-0 w-72 bg-sidebar border-r border-sidebar-border z-50 transition-transform duration-300 ${mobileOpen ? "translate-x-0" : "-translate-x-full"} shadow-2xl`}>
         <SidebarContent />
       </aside>
 
       <div className="flex-1 flex flex-col min-w-0">
         <header className="h-16 border-b border-border flex items-center justify-between px-4 lg:px-6 shrink-0 bg-background/80 backdrop-blur-sm">
           <div className="flex items-center gap-4">
-            <button className="lg:hidden p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-sidebar-accent" onClick={() => setMobileOpen(true)}>
-              <Menu className="w-5 h-5" />
+            <button className="lg:hidden p-2.5 rounded-xl text-muted-foreground hover:text-foreground hover:bg-sidebar-accent transition-colors border border-border/50" onClick={() => setMobileOpen(true)}>
+              <Menu className="w-6 h-6" />
             </button>
             <div className="hidden sm:block relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />

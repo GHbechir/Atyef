@@ -55,126 +55,15 @@ export default function Home() {
         <div className="absolute inset-0 opacity-[0.03] mix-blend-overlay" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")' }}></div>
       </div>
 
-      {/* ====== HEADER / NAVBAR (Apple Pill Style) ====== */}
-      <div className="fixed top-6 left-0 right-0 z-50 px-4 sm:px-6 flex justify-center w-full">
-        <header className="glass-pill w-full max-w-5xl h-16 flex items-center justify-between px-2 sm:px-4 transition-all duration-300">
-          
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group px-2">
-            <div className="w-9 h-9 rounded-full bg-white flex items-center justify-center shadow-[0_0_15px_rgba(255,255,255,0.3)] group-hover:shadow-[0_0_20px_rgba(255,255,255,0.6)] transition-all">
-              <Music2 className="w-5 h-5 text-black" />
-            </div>
-            <span className="text-xl font-bold font-heading tracking-tight text-foreground hidden sm:block">
-              Atyef
-            </span>
-          </Link>
-
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-1">
-            {[
-              { key: "home", path: "/" },
-              { key: "catalog", path: "/courses" },
-              { key: "pricing", path: "/pricing" },
-              { key: "about", path: "/about" }
-            ].map((item) => (
-              <Link
-                key={item.key}
-                href={item.path}
-                className="text-sm font-medium text-foreground/70 hover:text-foreground transition-colors px-4 py-2 rounded-full hover:bg-white/10"
-              >
-                {t(item.key as any)}
-              </Link>
-            ))}
-          </nav>
-
-          {/* Accessories & Actions */}
-          <div className="hidden md:flex items-center gap-2">
-            <div className="flex items-center bg-foreground/10 dark:bg-black/50 rounded-full p-1 border border-border mr-2">
-              {(["ar", "fr", "en"] as Language[]).map((l) => (
-                <button
-                  key={l}
-                  onClick={() => setLang(l)}
-                  className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase transition-all ${
-                    lang === l
-                      ? "bg-background text-foreground shadow-sm"
-                      : "text-foreground/50 hover:text-foreground"
-                  }`}
-                >
-                  {l}
-                </button>
-              ))}
-            </div>
-            <div className="mr-2">
-              <ThemeToggle />
-            </div>
-
-            <Link href="/sign-in">
-              <Button variant="ghost" className="rounded-full font-medium text-foreground/80 hover:text-foreground hover:bg-white/10 text-sm h-10 px-5">
-                {t("login")}
-              </Button>
-            </Link>
-            <Link href="/sign-up">
-              <Button className="rounded-full bg-white text-black hover:bg-white/90 font-medium px-6 shadow-lg h-10 text-sm">
-                {t("register")}
-              </Button>
-            </Link>
-          </div>
-
-          {/* Mobile Menu Toggle */}
-          <button
-            className="md:hidden p-2 text-foreground/80 hover:text-foreground bg-white/5 rounded-full"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
-        </header>
-
-        {/* Mobile Nav Dropdown */}
-        {isMobileMenuOpen && (
-          <div className="absolute top-[72px] left-4 right-4 glass-card p-4 rounded-2xl md:hidden border border-white/10 shadow-xl flex flex-col gap-2">
-            {[
-              { key: "home", path: "/" },
-              { key: "catalog", path: "/courses" },
-              { key: "pricing", path: "/pricing" },
-              { key: "about", path: "/about" }
-            ].map((item) => (
-              <Link
-                key={item.key}
-                href={item.path}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="text-foreground/80 hover:text-foreground hover:bg-white/10 px-4 py-3 rounded-xl transition-colors font-medium text-center"
-              >
-                {t(item.key as any)}
-              </Link>
-            ))}
-            <div className="h-px bg-white/10 my-2" />
-            <div className="flex items-center justify-center py-2">
-              <ThemeToggle />
-            </div>
-            <div className="h-px bg-white/10 my-2" />
-            <Link href="/sign-in" onClick={() => setIsMobileMenuOpen(false)}>
-              <Button variant="ghost" className="w-full text-foreground">
-                {t("login")}
-              </Button>
-            </Link>
-            <Link href="/sign-up" onClick={() => setIsMobileMenuOpen(false)}>
-              <Button className="w-full bg-white text-black hover:bg-white/90">
-                {t("register")}
-              </Button>
-            </Link>
-          </div>
-        )}
-      </div>
-
       {/* ====== HERO SECTION ====== */}
-      <section className="relative flex-1 flex flex-col justify-center min-h-[100vh] pt-24 z-10">
+      <section className="relative flex-1 flex flex-col justify-center min-h-[90vh] pt-20 sm:pt-24 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-12 flex flex-col items-center text-center">
           
           <motion.div
             initial={{ opacity: 0, y: 30, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full glass border border-white/10 text-sm font-medium text-foreground mb-8"
+            className="inline-flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 rounded-full glass border border-white/10 text-[13px] sm:text-sm font-medium text-foreground mb-6 sm:mb-8"
           >
             <Sparkles className="w-4 h-4 text-accent" />
             <span>{t("hero_badge")}</span>
@@ -187,7 +76,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="text-5xl md:text-7xl lg:text-[6rem] font-bold font-heading leading-[1] text-foreground tracking-tight max-w-5xl"
+            className="text-4xl sm:text-6xl md:text-7xl lg:text-[6rem] font-bold font-heading leading-tight sm:leading-[1] text-foreground tracking-tight max-w-5xl"
           >
             {t("hero_title_1")}
             <br />
@@ -200,7 +89,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-8 text-xl md:text-2xl text-foreground/50 max-w-2xl font-light tracking-wide lg:leading-relaxed"
+            className="mt-6 sm:mt-8 text-lg sm:text-xl md:text-2xl text-foreground/50 max-w-2xl font-light tracking-wide lg:leading-relaxed"
           >
             {t("hero_subtitle")}
           </motion.p>
@@ -228,7 +117,7 @@ export default function Home() {
       </section>
 
       {/* ====== SHOWCASE SECTION (Shahid/Netflix style Carousel placeholder) ====== */}
-      <section className="relative z-10 py-24 border-t border-white/5 bg-black/40 backdrop-blur-3xl">
+      <section className="relative z-10 py-16 sm:py-24 border-t border-white/5 bg-black/40 backdrop-blur-3xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
            <div className="flex items-end justify-between mb-12">
              <div>
