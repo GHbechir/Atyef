@@ -64,9 +64,9 @@ export default function Home() {
           <nav className="hidden md:flex items-center gap-1">
             {[
               { key: "home", path: "/" },
-              { key: "about", path: "/about" },
-              { key: "features", path: "/pricing" },
-              { key: "courses", path: "/courses" }
+              { key: "catalog", path: "/courses" },
+              { key: "pricing", path: "/pricing" },
+              { key: "about", path: "/about" }
             ].map((item) => (
               <Link
                 key={item.key}
@@ -125,9 +125,9 @@ export default function Home() {
           <div className="absolute top-[72px] left-4 right-4 glass-card p-4 rounded-2xl md:hidden border border-white/10 shadow-xl flex flex-col gap-2">
             {[
               { key: "home", path: "/" },
-              { key: "about", path: "/about" },
-              { key: "features", path: "/pricing" },
-              { key: "courses", path: "/courses" }
+              { key: "catalog", path: "/courses" },
+              { key: "pricing", path: "/pricing" },
+              { key: "about", path: "/about" }
             ].map((item) => (
               <Link
                 key={item.key}

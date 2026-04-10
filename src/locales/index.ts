@@ -1,10 +1,10 @@
 export const fr = {
   // Navigation
   home: "Accueil",
-  catalog: "Catalogue",
-  pricing: "Tarifs",
+  catalog: "Nos cours",
+  pricing: "Nos offres",
   about: "À propos",
-  features: "Nos offres",
+  features: "Fonctionnalités",
   teachers: "Nos professeurs",
   courses: "Nos cours",
   tools: "La Plateforme",
@@ -205,13 +205,13 @@ export const en = {
 export const ar = {
   // Navigation
   home: "الرئيسية",
-  catalog: "الفهرس",
-  pricing: "الأسعار",
-  about: "من نحن؟",
-  features: "المنصة",
-  teachers: "عروضنا",
-  courses: "محتوانا",
-  tools: "أساتذتنا",
+  catalog: "دوراتنا",
+  pricing: "عروضنا",
+  about: "من نحن",
+  features: "المميزات",
+  teachers: "أساتذتنا",
+  courses: "دوراتنا",
+  tools: "المنصة",
   login: "تسجيل الدخول",
   register: "ابدأ مجانا",
 
@@ -220,7 +220,7 @@ export const ar = {
   hero_title_1: "اكتشف خاصيات و مميزات ",
   hero_title_highlight: "عروضنا الاستثنائية",
   hero_title_2: " لجميع الأقسام",
-  hero_subtitle: "متوفرة الآن لجميع التلاميذ من الرابعة ابتدائي إلى البكالوريا", // Literal translation from Taki Academy
+  hero_subtitle: "متوفر الآن لجميع المستويات، من المبتدئين إلى المحترفين", 
   hero_cta: "تعرّف على عروضنا",
 
   // Sections
