@@ -11,6 +11,7 @@ import { ChordDictionary } from "@/components/tools/ChordDictionary";
 import { AudioRecorder } from "@/components/tools/AudioRecorder";
 import { ScalesReference } from "@/components/tools/ScalesReference";
 import { MidiPlayer, DEMO_SONGS } from "@/components/tools/MidiPlayer";
+import { GuitarTabPlayer } from "@/components/tools/GuitarTabPlayer";
 
 export default function ToolsPage() {
   return (
@@ -19,16 +20,22 @@ export default function ToolsPage() {
         <div className="flex items-center gap-3 mb-1">
           <h1 className="text-2xl font-bold font-heading text-white">Outils</h1>
           <Badge variant="outline" className="text-xs border-purple-500/30 text-purple-300 bg-purple-500/10">
-            8 outils
+            9 outils
           </Badge>
         </div>
         <p className="text-muted-foreground text-sm">
-          Piano virtuel, lecteur MIDI, boîte à rythmes, gammes, dictionnaire d&apos;accords, enregistreur et plus.
+          Tablature interactive, piano virtuel, lecteur MIDI, gammes, accords, enregistreur et plus.
         </p>
       </motion.div>
 
-      <Tabs defaultValue="piano" className="w-full">
+      <Tabs defaultValue="guitar-tab" className="w-full">
         <TabsList className="bg-white/5 border border-white/10 p-1 w-full flex flex-wrap h-auto gap-1">
+          <TabsTrigger
+            value="guitar-tab"
+            className="data-[state=active]:bg-primary/20 data-[state=active]:text-primary text-sm"
+          >
+            🎸 Tablature
+          </TabsTrigger>
           <TabsTrigger
             value="piano"
             className="data-[state=active]:bg-primary/20 data-[state=active]:text-primary text-sm"
@@ -78,6 +85,12 @@ export default function ToolsPage() {
             🎯 Accordeur
           </TabsTrigger>
         </TabsList>
+
+        <TabsContent value="guitar-tab" className="mt-6">
+          <div className="max-w-5xl mx-auto">
+            <GuitarTabPlayer />
+          </div>
+        </TabsContent>
 
         <TabsContent value="piano" className="mt-6">
           <div className="max-w-3xl mx-auto">
