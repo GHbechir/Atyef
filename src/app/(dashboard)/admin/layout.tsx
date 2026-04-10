@@ -10,6 +10,7 @@ import {
   Users,
   CreditCard,
   BarChart3,
+  DollarSign,
   User,
   Settings,
   LogOut,
@@ -39,6 +40,7 @@ const adminNav = [
   { name: "Cours", href: "/admin/courses", icon: BookOpen },
   { name: "Abonnements", href: "/admin/subscriptions", icon: CreditCard },
   { name: "Analytics", href: "/admin/analytics", icon: BarChart3 },
+  { name: "Rémunération", href: "/admin/finances", icon: DollarSign },
 ];
 
 export default function AdminLayout({
