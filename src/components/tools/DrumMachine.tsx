@@ -197,7 +197,7 @@ export function DrumMachine() {
           <span className="text-sm text-muted-foreground">BPM</span>
           <Slider
             value={[bpm]}
-            onValueChange={(val: number[]) => setBpm(val[0])}
+            onValueChange={(val: any) => setBpm(Array.isArray(val) ? val[0] : val)}
             min={60}
             max={200}
             step={1}
