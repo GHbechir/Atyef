@@ -154,7 +154,7 @@ export function ScalesReference() {
           <Volume2 className="w-4 h-4 text-muted-foreground" />
           <Slider
             value={[volume * 100]}
-            onValueChange={(val: number[]) => setVolume(val[0] / 100)}
+            onValueChange={(val: any) => setVolume((Array.isArray(val) ? val[0] : val) / 100)}
             max={100}
             className="w-24"
           />

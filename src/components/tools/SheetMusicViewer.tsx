@@ -780,7 +780,7 @@ export function SheetMusicViewer() {
     <div className="space-y-4">
       {/* Score selector */}
       <div className="flex flex-wrap items-center gap-3">
-        <Select value={selectedScore} onValueChange={changeScore}>
+        <Select value={selectedScore} onValueChange={(val) => val && changeScore(val)}>
           <SelectTrigger className="w-[280px] bg-white/5 border-white/10">
             <SelectValue />
           </SelectTrigger>
@@ -863,10 +863,11 @@ export function SheetMusicViewer() {
             value={[currentBeat]}
             max={totalBeats}
             step={0.1}
-            onValueChange={(val: number[]) => {
-              setCurrentBeat(val[0]);
-              startTimeRef.current = performance.now() - val[0] * beatDur * 1000;
-              draw(val[0]);
+            onValueChange={(val: any) => {
+              const value = Array.isArray(val) ? val[0] : val;
+              setCurrentBeat(value);
+              startTimeRef.current = performance.now() - value * beatDur * 1000;
+              draw(value);
             }}
             className="cursor-pointer"
           />
@@ -877,7 +878,7 @@ export function SheetMusicViewer() {
           <Volume2 className="w-3.5 h-3.5 text-muted-foreground" />
           <Slider
             value={[volume * 100]}
-            onValueChange={(val: number[]) => setVolume(val[0] / 100)}
+            onValueChange={(val: any) => setVolume((Array.isArray(val) ? val[0] : val) / 100)}
             max={100}
             className="w-20"
           />

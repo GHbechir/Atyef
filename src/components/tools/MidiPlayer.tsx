@@ -488,10 +488,11 @@ export function MidiPlayer({ notes, title, bpm = 120, totalDuration }: MidiPlaye
               value={[currentTime]}
               max={duration}
               step={0.1}
-              onValueChange={(val: number[]) => {
-                setCurrentTime(val[0]);
-                startTimeRef.current = performance.now() - val[0] * 1000;
-                drawPianoRoll(val[0]);
+              onValueChange={(val: any) => {
+                const value = Array.isArray(val) ? val[0] : val;
+                setCurrentTime(value);
+                startTimeRef.current = performance.now() - value * 1000;
+                drawPianoRoll(value);
               }}
               className="cursor-pointer"
             />
@@ -503,7 +504,7 @@ export function MidiPlayer({ notes, title, bpm = 120, totalDuration }: MidiPlaye
           <Volume2 className="w-3 h-3 text-muted-foreground" />
           <Slider
             value={[volume * 100]}
-            onValueChange={(val: number[]) => setVolume(val[0] / 100)}
+            onValueChange={(val: any) => setVolume((Array.isArray(val) ? val[0] : val) / 100)}
             max={100}
             className="w-16"
           />

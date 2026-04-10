@@ -15,6 +15,7 @@ export type CourseStyle =
   | "REGGAE"
   | "LATIN"
   | "ELECTRONIC"
+  | "ORIENTAL"
   | "OTHER";
 
 export type SubscriptionPlan = "BASIC" | "VIP" | "PREMIUM_PLUS";
