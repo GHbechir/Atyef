@@ -13,18 +13,20 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { LanguageToggle } from "@/components/layout/LanguageToggle";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-const navLinks = [
-  { name: "Accueil", href: "/" },
-  { name: "Catalogue", href: "/courses" },
-  { name: "Tarifs", href: "/pricing" },
-  { name: "À propos", href: "/about" },
+const navLinksKeys = [
+  { key: "home", href: "/" },
+  { key: "catalog", href: "/courses" },
+  { key: "pricing", href: "/pricing" },
+  { key: "about", href: "/about" },
 ];
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const { t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -59,7 +61,7 @@ export function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-1">
-            {navLinks.map((link) => (
+            {navLinksKeys.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
@@ -69,7 +71,7 @@ export function Navbar() {
                     : "text-muted-foreground hover:text-white hover:bg-white/5"
                 }`}
               >
-                {link.name}
+                {t(link.key as any)}
               </Link>
             ))}
           </div>
@@ -82,12 +84,12 @@ export function Navbar() {
             </div>
             <Link href="/sign-in">
               <Button variant="ghost" className="text-sm font-medium text-muted-foreground hover:text-white">
-                Se connecter
+                {t("login")}
               </Button>
             </Link>
             <Link href="/sign-up">
               <Button className="text-sm font-medium gradient-bg hover:opacity-90 text-white border-0 shadow-lg shadow-purple-500/20">
-                Commencer gratuitement
+                {t("register")}
               </Button>
             </Link>
           </div>
@@ -110,7 +112,7 @@ export function Navbar() {
         {isMobileMenuOpen && (
           <div className="lg:hidden animate-slide-up pb-4">
             <div className="flex flex-col gap-1 mb-4">
-              {navLinks.map((link) => (
+              {navLinksKeys.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
@@ -121,7 +123,7 @@ export function Navbar() {
                       : "text-muted-foreground hover:text-white hover:bg-white/5"
                   }`}
                 >
-                  {link.name}
+                  {t(link.key as any)}
                 </Link>
               ))}
             </div>
@@ -132,12 +134,12 @@ export function Navbar() {
             <div className="flex flex-col gap-2 pt-4 border-t border-white/10">
               <Link href="/sign-in" onClick={() => setIsMobileMenuOpen(false)}>
                 <Button variant="ghost" className="w-full justify-center text-muted-foreground hover:text-white">
-                  Se connecter
+                  {t("login")}
                 </Button>
               </Link>
               <Link href="/sign-up" onClick={() => setIsMobileMenuOpen(false)}>
                 <Button className="w-full justify-center gradient-bg hover:opacity-90 text-white border-0">
-                  Commencer gratuitement
+                  {t("register")}
                 </Button>
               </Link>
             </div>

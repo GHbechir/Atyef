@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { ADMIN_STATS } from "@/lib/mock-data";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 function AdminStatCard({
   icon: Icon,
@@ -62,15 +63,16 @@ function AdminStatCard({
 
 export default function AdminDashboardPage() {
   const stats = ADMIN_STATS;
+  const { t } = useLanguage();
 
   return (
     <div className="space-y-8">
       <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }}>
         <h1 className="text-2xl font-bold font-heading text-white mb-1">
-          Vue d&apos;ensemble Admin 👑
+          {t("admin_overview")} 👑
         </h1>
         <p className="text-muted-foreground text-sm">
-          Aperçu global des performances de la plateforme Atyef.
+          {t("admin_overview_subtitle")}
         </p>
       </motion.div>
 
@@ -78,7 +80,7 @@ export default function AdminDashboardPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <AdminStatCard
           icon={DollarSign}
-          label="Revenus Mensuels (MRR)"
+          label={t("mrr") as string}
           value={`${(stats.totalRevenue).toLocaleString("fr-FR")} €`}
           trend="12.5%"
           trendUp={true}
@@ -87,7 +89,7 @@ export default function AdminDashboardPage() {
         />
         <AdminStatCard
           icon={Users}
-          label="Utilisateurs Totaux"
+          label={t("total_users") as string}
           value={stats.totalUsers.toLocaleString("fr-FR")}
           trend="5.2%"
           trendUp={true}
@@ -96,7 +98,7 @@ export default function AdminDashboardPage() {
         />
         <AdminStatCard
           icon={CreditCard}
-          label="Abonnements Actifs"
+          label={t("active_subscriptions") as string}
           value={stats.activeSubscriptions.toLocaleString("fr-FR")}
           trend="8.1%"
           trendUp={true}
@@ -105,7 +107,7 @@ export default function AdminDashboardPage() {
         />
         <AdminStatCard
           icon={Activity}
-          label="Taux de Rétention"
+          label={t("retention_rate") as string}
           value={`${stats.retentionRate}%`}
           trend="1.2%"
           trendUp={false}
@@ -118,7 +120,7 @@ export default function AdminDashboardPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <AdminStatCard
           icon={Video}
-          label="Vidéos d'Élèves Reçues"
+          label={t("student_videos_received") as string}
           value="1,245"
           trend="18%"
           trendUp={true}
@@ -127,7 +129,7 @@ export default function AdminDashboardPage() {
         />
         <AdminStatCard
           icon={UserCheck}
-          label="Taux de Feedbacks Complétés (Profs)"
+          label={t("teacher_feedbacks_completed") as string}
           value="94%"
           trend="2%"
           trendUp={true}
@@ -146,12 +148,12 @@ export default function AdminDashboardPage() {
         >
           <div className="glass-card rounded-xl p-5">
             <h3 className="text-sm font-semibold text-white flex items-center gap-2 mb-4">
-              <UserCheck className="w-4 h-4 text-purple-400" /> Répartition Utilisateurs
+              <UserCheck className="w-4 h-4 text-purple-400" /> {t("user_distribution")}
             </h3>
             <div className="space-y-4">
               <div>
                 <div className="flex items-center justify-between text-xs mb-1">
-                  <span className="text-muted-foreground">Apprenants</span>
+                  <span className="text-muted-foreground">{t("learners")}</span>
                   <span className="font-medium text-white">{stats.totalLearners}</span>
                 </div>
                 <div className="w-full bg-white/5 rounded-full h-1.5">
@@ -160,7 +162,7 @@ export default function AdminDashboardPage() {
               </div>
               <div>
                 <div className="flex items-center justify-between text-xs mb-1">
-                  <span className="text-muted-foreground">Professeurs</span>
+                  <span className="text-muted-foreground">{t("teachers")}</span>
                   <span className="font-medium text-white">{stats.totalTeachers}</span>
                 </div>
                 <div className="w-full bg-white/5 rounded-full h-1.5">
@@ -172,19 +174,19 @@ export default function AdminDashboardPage() {
 
           <div className="glass-card rounded-xl p-5">
             <h3 className="text-sm font-semibold text-white flex items-center gap-2 mb-4">
-              <BookOpen className="w-4 h-4 text-blue-400" /> Contenu Global
+              <BookOpen className="w-4 h-4 text-blue-400" /> {t("global_content")}
             </h3>
              <div className="space-y-3">
                <div className="flex items-center justify-between pb-3 border-b border-white/5">
-                 <span className="text-sm text-muted-foreground">Cours publiés</span>
+                 <span className="text-sm text-muted-foreground">{t("published_courses")}</span>
                  <span className="text-sm font-semibold text-white">{stats.totalCourses}</span>
                </div>
                <div className="flex items-center justify-between pb-3 border-b border-white/5">
-                 <span className="text-sm text-muted-foreground">Leçons vidéos</span>
+                 <span className="text-sm text-muted-foreground">{t("video_lessons")}</span>
                  <span className="text-sm font-semibold text-white">1 452</span>
                </div>
                 <div className="flex items-center justify-between">
-                 <span className="text-sm text-muted-foreground">Heures de contenu</span>
+                 <span className="text-sm text-muted-foreground">{t("content_hours")}</span>
                  <span className="text-sm font-semibold text-white">450h+</span>
                </div>
              </div>
@@ -199,14 +201,14 @@ export default function AdminDashboardPage() {
            transition={{ delay: 0.25 }}
         >
            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-base font-semibold text-white">Croissance des Revenus (MRR)</h3>
-              <Badge variant="outline" className="border-white/10 text-muted-foreground">30 Derniers Jours</Badge>
+              <h3 className="text-base font-semibold text-white">{t("revenue_growth")}</h3>
+              <Badge variant="outline" className="border-white/10 text-muted-foreground">{t("last_30_days")}</Badge>
            </div>
            
            <div className="flex-1 flex flex-col items-center justify-center border-2 border-dashed border-white/5 rounded-xl bg-white/3 min-h-[300px]">
               <TrendingUp className="w-12 h-12 text-muted-foreground/50 mb-3" />
-              <p className="text-sm text-muted-foreground">Graphique Recharts à intégrer ici</p>
-              <p className="text-xs text-muted-foreground/60 mt-1">Évolution des abonnements au fil du temps</p>
+              <p className="text-sm text-muted-foreground">{t("chart_placeholder")}</p>
+              <p className="text-xs text-muted-foreground/60 mt-1">{t("subscription_evolution")}</p>
            </div>
         </motion.div>
       </div>

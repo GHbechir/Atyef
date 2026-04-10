@@ -35,14 +35,15 @@ import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { LanguageToggle } from "@/components/layout/LanguageToggle";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-const adminNav = [
-  { name: "Tableau de bord", href: "/admin", icon: Home },
-  { name: "Utilisateurs", href: "/admin/users", icon: Users },
-  { name: "Cours", href: "/admin/courses", icon: BookOpen },
-  { name: "Abonnements", href: "/admin/subscriptions", icon: CreditCard },
-  { name: "Analytics", href: "/admin/analytics", icon: BarChart3 },
-  { name: "Rémunération", href: "/admin/finances", icon: DollarSign },
+const adminNavKeys = [
+  { key: "admin_dashboard", href: "/admin", icon: Home },
+  { key: "users", href: "/admin/users", icon: Users },
+  { key: "admin_courses", href: "/admin/courses", icon: BookOpen },
+  { key: "subscriptions", href: "/admin/subscriptions", icon: CreditCard },
+  { key: "statistics", href: "/admin/analytics", icon: BarChart3 },
+  { key: "financial_remuneration", href: "/admin/finances", icon: DollarSign },
 ];
 
 export default function AdminLayout({
@@ -53,6 +54,7 @@ export default function AdminLayout({
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
+  const { t } = useLanguage();
 
   const SidebarContent = () => (
     <div className="flex flex-col h-full">
@@ -76,14 +78,14 @@ export default function AdminLayout({
         <div className="px-4 py-3">
           <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-red-500/10 border border-red-500/20 w-fit">
             <Shield className="w-3 h-3 text-red-400" />
-            <span className="text-xs font-medium text-red-400">Administration</span>
+            <span className="text-xs font-medium text-red-400">{t("admin_space")}</span>
           </div>
         </div>
       )}
 
       <ScrollArea className="flex-1 px-3 py-4">
         <nav className="space-y-1">
-          {adminNav.map((item) => {
+          {adminNavKeys.map((item) => {
             const isActive = pathname === item.href;
             return (
               <Link
@@ -101,7 +103,7 @@ export default function AdminLayout({
                     isActive ? "text-red-400" : "text-muted-foreground group-hover:text-white"
                   }`}
                 />
-                {!collapsed && <span className="truncate">{item.name}</span>}
+                {!collapsed && <span className="truncate">{t(item.key as any)}</span>}
               </Link>
             );
           })}
@@ -110,18 +112,18 @@ export default function AdminLayout({
         {/* Platform Stats Widget */}
         {!collapsed && (
           <div className="mt-6 mx-1 p-4 rounded-xl bg-gradient-to-br from-red-500/10 to-pink-500/10 border border-red-500/20">
-            <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-2">Plateforme</p>
+            <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-2">{t("platform_label")}</p>
             <div className="space-y-2">
               <div className="flex justify-between items-center">
-                <span className="text-xs text-muted-foreground">Utilisateurs</span>
+                <span className="text-xs text-muted-foreground">{t("users")}</span>
                 <span className="text-xs font-bold text-white">2 847</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-xs text-muted-foreground">Abonnements actifs</span>
+                <span className="text-xs text-muted-foreground">{t("active_subscriptions")}</span>
                 <span className="text-xs font-bold text-emerald-400">1 832</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-xs text-muted-foreground">Revenus du mois</span>
+                <span className="text-xs text-muted-foreground">{t("revenue_month")}</span>
                 <span className="text-xs font-bold text-white">€ 28 450</span>
               </div>
             </div>
@@ -140,7 +142,7 @@ export default function AdminLayout({
               {!collapsed && (
                 <div className="flex-1 text-left min-w-0">
                   <p className="text-sm font-medium text-white truncate">Admin</p>
-                  <p className="text-xs text-red-400">Administrateur</p>
+                  <p className="text-xs text-red-400">{t("admin_space")}</p>
                 </div>
               )}
           </DropdownMenuTrigger>

@@ -35,15 +35,16 @@ import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { LanguageToggle } from "@/components/layout/LanguageToggle";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-const teacherNav = [
-  { name: "Tableau de bord", href: "/teach", icon: Home },
-  { name: "Mes cours", href: "/teach/courses", icon: BookOpen },
-  { name: "Créer un cours", href: "/teach/courses/new", icon: PlusCircle },
-  { name: "Mes élèves", href: "/teach/students", icon: Users },
-  { name: "Feedbacks", href: "/teach/feedbacks", icon: MessageSquare },
-  { name: "Revenus", href: "/teach/revenue", icon: CreditCard },
-  { name: "Statistiques", href: "/teach/analytics", icon: BarChart3 },
+const teacherNavKeys = [
+  { key: "dashboard", href: "/teach", icon: Home },
+  { key: "my_courses", href: "/teach/courses", icon: BookOpen },
+  { key: "create_course", href: "/teach/courses/new", icon: PlusCircle },
+  { key: "my_students", href: "/teach/students", icon: Users },
+  { key: "feedbacks", href: "/teach/feedbacks", icon: MessageSquare },
+  { key: "revenue", href: "/teach/revenue", icon: CreditCard },
+  { key: "statistics", href: "/teach/analytics", icon: BarChart3 },
 ];
 
 export default function TeacherLayout({
@@ -54,6 +55,7 @@ export default function TeacherLayout({
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
+  const { t } = useLanguage();
 
   const SidebarContent = () => (
     <div className="flex flex-col h-full">
@@ -77,14 +79,14 @@ export default function TeacherLayout({
         <div className="px-4 py-3">
           <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 w-fit">
             <GraduationCap className="w-3 h-3 text-amber-400" />
-            <span className="text-xs font-medium text-amber-400">Espace Professeur</span>
+            <span className="text-xs font-medium text-amber-400">{t("teacher_space")}</span>
           </div>
         </div>
       )}
 
       <ScrollArea className="flex-1 px-3 py-4">
         <nav className="space-y-1">
-          {teacherNav.map((item) => {
+          {teacherNavKeys.map((item) => {
             const isActive = pathname === item.href;
             return (
               <Link
@@ -102,7 +104,7 @@ export default function TeacherLayout({
                     isActive ? "text-amber-400" : "text-muted-foreground group-hover:text-white"
                   }`}
                 />
-                {!collapsed && <span className="truncate">{item.name}</span>}
+                {!collapsed && <span className="truncate">{t(item.key as any)}</span>}
               </Link>
             );
           })}
@@ -111,9 +113,9 @@ export default function TeacherLayout({
         {/* Revenue Widget */}
         {!collapsed && (
           <div className="mt-6 mx-1 p-4 rounded-xl bg-gradient-to-br from-amber-500/10 to-orange-500/10 border border-amber-500/20">
-            <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-1">Revenus ce mois</p>
+            <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-1">{t("revenue_this_month")}</p>
             <p className="text-xl font-bold text-white">€ 4 280</p>
-            <p className="text-xs text-emerald-400 mt-0.5">+12% vs mois dernier</p>
+            <p className="text-xs text-emerald-400 mt-0.5">+12% {t("vs_last_month")}</p>
           </div>
         )}
       </ScrollArea>
@@ -179,7 +181,7 @@ export default function TeacherLayout({
             </button>
             <div className="hidden sm:block relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-              <Input placeholder="Rechercher..." className="pl-9 w-64 h-9 bg-white/5 border-white/10 text-white text-sm placeholder:text-muted-foreground" />
+              <Input placeholder={t("search_course")} className="pl-9 w-64 h-9 bg-white/5 border-white/10 text-white text-sm placeholder:text-muted-foreground" />
             </div>
           </div>
           <div className="flex items-center gap-2">

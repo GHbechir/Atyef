@@ -25,6 +25,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { TEACHER_STATS, FEATURED_COURSES } from "@/lib/mock-data";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 function StatCard({
   icon: Icon,
@@ -81,6 +82,7 @@ const recentStudents = [
 
 export default function TeacherDashboard() {
   const stats = TEACHER_STATS;
+  const { t } = useLanguage();
 
   return (
     <div className="space-y-8">
@@ -91,35 +93,35 @@ export default function TeacherDashboard() {
       >
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold font-heading text-white mb-1">
-            Espace Professeur 🎓
+            {t("teacher_space")} 🎓
           </h1>
           <p className="text-muted-foreground">
-            Gérez vos cours, suivez vos élèves et vos revenus.
+            {t("manage_courses_subtitle")}
           </p>
         </div>
         <Link href="/teach/courses/new">
           <Button className="gradient-bg text-white hover:opacity-90 border-0 shadow-lg shadow-purple-500/20">
             <PlusCircle className="w-4 h-4 mr-2" />
-            Nouveau cours
+            {t("new_course")}
           </Button>
         </Link>
       </motion.div>
 
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatCard icon={Users} label="Élèves inscrits" value={String(stats.totalStudents)} trend="+12%" color="bg-purple-500/20" delay={0} />
-        <StatCard icon={BookOpen} label="Cours publiés" value={String(stats.totalCourses)} color="bg-blue-500/20" delay={0.05} />
-        <StatCard icon={Eye} label="Vues totales" value={stats.totalViews.toLocaleString("fr-FR")} trend="+8%" color="bg-amber-500/20" delay={0.1} />
-        <StatCard icon={CreditCard} label="Revenus du mois" value={`${stats.totalRevenue} €`} trend="+15%" color="bg-emerald-500/20" delay={0.15} />
+        <StatCard icon={Users} label={t("enrolled_students") as string} value={String(stats.totalStudents)} trend="+12%" color="bg-purple-500/20" delay={0} />
+        <StatCard icon={BookOpen} label={t("published_courses") as string} value={String(stats.totalCourses)} color="bg-blue-500/20" delay={0.05} />
+        <StatCard icon={Eye} label={t("total_views") as string} value={stats.totalViews.toLocaleString("fr-FR")} trend="+8%" color="bg-amber-500/20" delay={0.1} />
+        <StatCard icon={CreditCard} label={t("revenue_this_month") as string} value={`${stats.totalRevenue} €`} trend="+15%" color="bg-emerald-500/20" delay={0.15} />
       </div>
 
       {/* My Courses */}
       <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-bold font-heading text-white">Mes cours</h2>
+          <h2 className="text-lg font-bold font-heading text-white">{t("my_courses")}</h2>
           <Link href="/teach/courses">
             <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-white group">
-              Voir tout <ChevronRight className="w-4 h-4 ml-1 group-hover:translate-x-0.5 transition-transform" />
+              {t("see_all")} <ChevronRight className="w-4 h-4 ml-1 group-hover:translate-x-0.5 transition-transform" />
             </Button>
           </Link>
         </div>
@@ -136,13 +138,13 @@ export default function TeacherDashboard() {
                 <div className="flex items-center gap-2 mb-0.5">
                   <h3 className="text-sm font-semibold text-white truncate">{course.title}</h3>
                   <Badge variant="outline" className={`text-[10px] px-1.5 py-0 shrink-0 ${course.published ? "border-emerald-500/30 text-emerald-400" : "border-amber-500/30 text-amber-400"}`}>
-                    {course.published ? "Publié" : "Brouillon"}
+                    {course.published ? t("published") : t("draft")}
                   </Badge>
                 </div>
                 <div className="flex items-center gap-4 text-xs text-muted-foreground">
                   <span className="flex items-center gap-1"><Users className="w-3 h-3" />{course.students}</span>
                   <span className="flex items-center gap-1"><Eye className="w-3 h-3" />{course.views.toLocaleString("fr-FR")}</span>
-                  <span className="flex items-center gap-1"><BookOpen className="w-3 h-3" />{course.lessonCount} leçons</span>
+                  <span className="flex items-center gap-1"><BookOpen className="w-3 h-3" />{course.lessonCount} {t("lessons")}</span>
                 </div>
               </div>
               <div className="text-right shrink-0 hidden sm:block">
@@ -167,10 +169,10 @@ export default function TeacherDashboard() {
       {/* Recent Students */}
       <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}>
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-bold font-heading text-white">Activité récente des élèves</h2>
+          <h2 className="text-lg font-bold font-heading text-white">{t("recent_activity")}</h2>
           <Link href="/teach/students">
             <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-white group">
-              Tous les élèves <ChevronRight className="w-4 h-4 ml-1 group-hover:translate-x-0.5 transition-transform" />
+              {t("all_students")} <ChevronRight className="w-4 h-4 ml-1 group-hover:translate-x-0.5 transition-transform" />
             </Button>
           </Link>
         </div>
