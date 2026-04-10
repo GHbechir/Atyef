@@ -14,6 +14,8 @@ import {
   Clock,
   ChevronRight,
   BarChart3,
+  Video,
+  CheckCircle2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -80,6 +82,11 @@ const recentStudents = [
   { name: "Léa Moreau", course: "Jazz Piano Avancé", progress: 23, lastActive: "Il y a 2 jours" },
 ];
 
+const pendingFeedbacks = [
+  { id: "f1", student: "Karim B.", avatar: "K", course: "Jazz Guitare Masterclass", lesson: "Improvisation II-V-I", time: "Il y a 1h", status: "urgent" },
+  { id: "f2", student: "Sarah M.", avatar: "S", course: "Piano : Les Fondamentaux", lesson: "Arpèges main gauche", time: "Hier", status: "pending" },
+];
+
 export default function TeacherDashboard() {
   const stats = TEACHER_STATS;
   const { t } = useLanguage();
@@ -115,102 +122,143 @@ export default function TeacherDashboard() {
         <StatCard icon={CreditCard} label={t("revenue_this_month") as string} value={`${stats.totalRevenue} €`} trend="+15%" color="bg-gradient-to-br from-emerald-500/30 to-emerald-500/10 border border-emerald-500/20" delay={0.15} />
       </div>
 
-      {/* My Courses */}
-      <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-base font-semibold font-heading text-foreground">{t("my_courses")}</h2>
-          <Link href="/teach/courses">
-            <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-white group">
-              {t("see_all")} <ChevronRight className="w-4 h-4 ml-1 group-hover:translate-x-0.5 transition-transform" />
-            </Button>
-          </Link>
-        </div>
-        <div className="space-y-3">
-          {teacherCourses.map((course, i) => (
-            <div key={course.id} className="glass-card rounded-xl p-4 flex items-center gap-4 group">
-              <div
-                className="w-14 h-14 rounded-lg flex items-center justify-center shrink-0"
-                style={{ background: `linear-gradient(135deg, ${course.instrument.color}30, ${course.instrument.color}10)` }}
-              >
-                <Play className="w-5 h-5 text-white/70" />
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 mb-0.5">
-                  <h3 className="text-sm font-semibold text-white truncate">{course.title}</h3>
-                  <Badge variant="outline" className={`text-[10px] px-1.5 py-0 shrink-0 ${course.published ? "border-emerald-500/30 text-emerald-400" : "border-amber-500/30 text-amber-400"}`}>
-                    {course.published ? t("published") : t("draft")}
-                  </Badge>
-                </div>
-                <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                  <span className="flex items-center gap-1"><Users className="w-3 h-3" />{course.students}</span>
-                  <span className="flex items-center gap-1"><Eye className="w-3 h-3" />{course.views.toLocaleString("fr-FR")}</span>
-                  <span className="flex items-center gap-1"><BookOpen className="w-3 h-3" />{course.lessonCount} {t("lessons")}</span>
-                </div>
-              </div>
-              <div className="text-right shrink-0 hidden sm:block">
-                <p className="text-sm font-semibold text-white">{course.revenue} €</p>
-                <p className="text-xs text-muted-foreground">ce mois</p>
-              </div>
-              <DropdownMenu>
-                <DropdownMenuTrigger className="flex items-center justify-center w-8 h-8 text-muted-foreground hover:text-white shrink-0 rounded-md hover:bg-white/5 transition-colors">
-                  <MoreVertical className="w-4 h-4" />
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  <DropdownMenuItem>Modifier</DropdownMenuItem>
-                  <DropdownMenuItem>Voir les analytics</DropdownMenuItem>
-                  <DropdownMenuItem>{course.published ? "Dépublier" : "Publier"}</DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+      <div className="grid lg:grid-cols-3 gap-8">
+        <div className="lg:col-span-2 space-y-8">
+          
+          {/* Feedback Requests (Inbox) */}
+          <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.18 }}>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-base font-semibold font-heading text-foreground flex items-center gap-2">
+                Demandes de Feedback
+                <Badge variant="destructive" className="bg-red-500/20 text-red-500 border-red-500/30 text-[10px] px-1.5 py-0 h-5">2</Badge>
+              </h2>
             </div>
-          ))}
-        </div>
-      </motion.div>
-
-      {/* Recent Students */}
-      <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}>
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-bold font-heading text-white">{t("recent_activity")}</h2>
-          <Link href="/teach/students">
-            <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-white group">
-              {t("all_students")} <ChevronRight className="w-4 h-4 ml-1 group-hover:translate-x-0.5 transition-transform" />
-            </Button>
-          </Link>
-        </div>
-        <div className="glass-card rounded-xl overflow-hidden">
-          <div className="divide-y divide-white/5">
-            {recentStudents.map((student, i) => {
-            const avatarColors = [
-              "from-purple-500 to-violet-600",
-              "from-pink-500 to-rose-500",
-              "from-blue-500 to-cyan-500",
-              "from-emerald-500 to-teal-500",
-            ];
-            return (
-              <div key={i} className="flex items-center gap-4 p-4 hover:bg-foreground/[0.02] transition-colors">
-                <div className={`w-9 h-9 rounded-full bg-gradient-to-br ${avatarColors[i % avatarColors.length]} flex items-center justify-center text-xs font-bold text-white shrink-0 shadow-md`}>
-                  {student.name[0]}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-foreground">{student.name}</p>
-                  <p className="text-xs text-muted-foreground truncate">{student.course}</p>
-                </div>
-                <div className="text-right shrink-0 hidden sm:block">
-                  <div className="flex items-center gap-2 mb-1">
-                    <div className="w-20 h-1.5 bg-foreground/10 rounded-full overflow-hidden">
-                      <div
-                        className="h-full bg-gradient-to-r from-accent to-purple-400 rounded-full transition-all"
-                        style={{ width: `${student.progress}%` }}
-                      />
-                    </div>
-                    <span className="text-xs text-muted-foreground w-8">{student.progress}%</span>
+            <div className="space-y-3">
+              {pendingFeedbacks.map((fb) => (
+                <div key={fb.id} className="glass-card rounded-xl p-4 flex items-center gap-4 group hover:bg-white/5 transition-all">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-sm font-bold text-white shrink-0 shadow-md">
+                    {fb.avatar}
                   </div>
-                  <p className="text-xs text-muted-foreground">{student.lastActive}</p>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-0.5">
+                      <h3 className="text-sm font-semibold text-white truncate">{fb.student}</h3>
+                      {fb.status === "urgent" && <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />}
+                    </div>
+                    <p className="text-xs text-muted-foreground truncate">{fb.course} • {fb.lesson}</p>
+                  </div>
+                  <div className="text-right shrink-0">
+                    <p className="text-[10px] text-muted-foreground mb-1">{fb.time}</p>
+                    <Link href={`/teach/feedback/${fb.id}`}>
+                      <Button size="sm" className="h-7 text-xs bg-accent text-accent-foreground hover:bg-accent/90 gap-1.5 shadow-lg shadow-accent/20 border-0">
+                        <Video className="w-3.5 h-3.5" /> Évaluer
+                      </Button>
+                    </Link>
+                  </div>
                 </div>
-              </div>
-            );
-          })}</div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* My Courses */}
+          <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-base font-semibold font-heading text-foreground">{t("my_courses")}</h2>
+              <Link href="/teach/courses">
+                <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-white group">
+                  {t("see_all")} <ChevronRight className="w-4 h-4 ml-1 group-hover:translate-x-0.5 transition-transform" />
+                </Button>
+              </Link>
+            </div>
+            <div className="space-y-3">
+              {teacherCourses.map((course) => (
+                <div key={course.id} className="glass-card rounded-xl p-4 flex items-center gap-4 group">
+                  <div
+                    className="w-14 h-14 rounded-lg flex items-center justify-center shrink-0"
+                    style={{ background: `linear-gradient(135deg, ${course.instrument.color}30, ${course.instrument.color}10)` }}
+                  >
+                    <Play className="w-5 h-5 text-white/70" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-0.5">
+                      <h3 className="text-sm font-semibold text-white truncate">{course.title}</h3>
+                      <Badge variant="outline" className={`text-[10px] px-1.5 py-0 shrink-0 ${course.published ? "border-emerald-500/30 text-emerald-400" : "border-amber-500/30 text-amber-400"}`}>
+                        {course.published ? t("published") : t("draft")}
+                      </Badge>
+                    </div>
+                    <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                      <span className="flex items-center gap-1"><Users className="w-3 h-3" />{course.students}</span>
+                      <span className="flex items-center gap-1"><Eye className="w-3 h-3" />{course.views.toLocaleString("fr-FR")}</span>
+                      <span className="flex items-center gap-1"><BookOpen className="w-3 h-3" />{course.lessonCount} {t("lessons")}</span>
+                    </div>
+                  </div>
+                  <div className="text-right shrink-0 hidden sm:block">
+                    <p className="text-sm font-semibold text-white">{course.revenue} €</p>
+                    <p className="text-xs text-muted-foreground">ce mois</p>
+                  </div>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger className="flex items-center justify-center w-8 h-8 text-muted-foreground hover:text-white shrink-0 rounded-md hover:bg-white/5 transition-colors">
+                      <MoreVertical className="w-4 h-4" />
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                      <DropdownMenuItem>Modifier</DropdownMenuItem>
+                      <DropdownMenuItem>Voir les analytics</DropdownMenuItem>
+                      <DropdownMenuItem>{course.published ? "Dépublier" : "Publier"}</DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </div>
+              ))}
+            </div>
+          </motion.div>
         </div>
-      </motion.div>
+
+        <div className="space-y-8">
+          {/* Recent Students */}
+          <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-bold font-heading text-white">{t("recent_activity")}</h2>
+              <Link href="/teach/students">
+                <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-white group">
+                  {t("all_students")} <ChevronRight className="w-4 h-4 ml-1 group-hover:translate-x-0.5 transition-transform" />
+                </Button>
+              </Link>
+            </div>
+            <div className="glass-card rounded-xl overflow-hidden">
+              <div className="divide-y divide-white/5">
+                {recentStudents.map((student, i) => {
+                const avatarColors = [
+                  "from-purple-500 to-violet-600",
+                  "from-pink-500 to-rose-500",
+                  "from-blue-500 to-cyan-500",
+                  "from-emerald-500 to-teal-500",
+                ];
+                return (
+                  <div key={i} className="flex items-center gap-4 p-4 hover:bg-foreground/[0.02] transition-colors">
+                    <div className={`w-9 h-9 rounded-full bg-gradient-to-br ${avatarColors[i % avatarColors.length]} flex items-center justify-center text-xs font-bold text-white shrink-0 shadow-md`}>
+                      {student.name[0]}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium text-foreground">{student.name}</p>
+                      <p className="text-xs text-muted-foreground truncate">{student.course}</p>
+                    </div>
+                    <div className="text-right shrink-0 hidden sm:block">
+                      <div className="flex items-center gap-2 mb-1">
+                        <div className="w-20 h-1.5 bg-foreground/10 rounded-full overflow-hidden">
+                          <div
+                            className="h-full bg-gradient-to-r from-accent to-purple-400 rounded-full transition-all"
+                            style={{ width: `${student.progress}%` }}
+                          />
+                        </div>
+                        <span className="text-xs text-muted-foreground w-8">{student.progress}%</span>
+                      </div>
+                      <p className="text-xs text-muted-foreground">{student.lastActive}</p>
+                    </div>
+                  </div>
+                );
+              })}</div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
     </div>
   );
 }
