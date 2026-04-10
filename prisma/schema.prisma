@@ -59,6 +59,11 @@ enum SubscriptionStatus {
   INCOMPLETE
 }
 
+enum SubmissionStatus {
+  PENDING
+  REVIEWED
+}
+
 // ===== MODELS =====
 
 model User {
@@ -92,9 +97,11 @@ model User {
   lessonProgress LessonProgress[]
   subscription   Subscription?
   badges         UserBadge[]
+  submissions    PerformanceSubmission[] @relation("LearnerSubmissions")
 
   // Relations for Teacher
   courses Course[] @relation("TeacherCourses")
+  feedbacksProvided PerformanceFeedback[] @relation("TeacherFeedbacks")
 
   // Family
   familyGroupOwned  FamilyGroup?  @relation("FamilyOwner")
@@ -172,6 +179,7 @@ model Lesson {
   course    Course         @relation(fields: [courseId], references: [id], onDelete: Cascade)
   resources LessonResource[]
   progress  LessonProgress[]
+  submissions PerformanceSubmission[]
 
   @@index([courseId])
   @@map("lessons")
@@ -330,4 +338,41 @@ model Song {
 
   @@index([instrumentId])
   @@map("songs")
+}
+
+// ===== PERFORMANCE RECORDINGS & FEEDBACK =====
+
+model PerformanceSubmission {
+  id        String   @id @default(cuid())
+  videoUrl  String
+  status    SubmissionStatus @default(PENDING)
+  createdAt DateTime @default(now())
+
+  userId    String
+  user      User     @relation("LearnerSubmissions", fields: [userId], references: [id], onDelete: Cascade)
+  lessonId  String
+  lesson    Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  
+  feedback  PerformanceFeedback?
+
+  @@index([userId])
+  @@index([lessonId])
+  @@map("performance_submissions")
+}
+
+model PerformanceFeedback {
+  id               String   @id @default(cuid())
+  comment          String?
+  videoFeedbackUrl String?
+  rating           Int?     // 1 to 5
+  createdAt        DateTime @default(now())
+
+  teacherId        String
+  teacher          User     @relation("TeacherFeedbacks", fields: [teacherId], references: [id], onDelete: Cascade)
+
+  submissionId     String   @unique
+  submission       PerformanceSubmission @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+
+  @@index([teacherId])
+  @@map("performance_feedbacks")
 }

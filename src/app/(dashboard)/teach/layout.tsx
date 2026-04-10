@@ -20,6 +20,7 @@ import {
   Search,
   Menu,
   BarChart3,
+  MessageSquare,
 } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
@@ -38,6 +39,7 @@ const teacherNav = [
   { name: "Mes cours", href: "/teach/courses", icon: BookOpen },
   { name: "Créer un cours", href: "/teach/courses/new", icon: PlusCircle },
   { name: "Mes élèves", href: "/teach/students", icon: Users },
+  { name: "Feedbacks", href: "/teach/feedbacks", icon: MessageSquare },
   { name: "Revenus", href: "/teach/revenue", icon: CreditCard },
   { name: "Statistiques", href: "/teach/analytics", icon: BarChart3 },
 ];

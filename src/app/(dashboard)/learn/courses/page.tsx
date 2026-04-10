@@ -29,7 +29,7 @@ export default function LearnerCoursesPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.05 }}
             >
-              <Link href={`/learn/courses/${course.id}`}>
+              <Link href={`/learn/courses/${course.slug}/lessons/lesson_1`}>
                 <div className="glass-card rounded-xl p-4 sm:p-5 flex flex-col sm:flex-row gap-4 group cursor-pointer">
                   <div
                     className="w-full sm:w-40 h-28 rounded-lg flex items-center justify-center shrink-0"

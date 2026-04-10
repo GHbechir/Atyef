@@ -13,6 +13,7 @@ import { ScalesReference } from "@/components/tools/ScalesReference";
 import { MidiPlayer, DEMO_SONGS } from "@/components/tools/MidiPlayer";
 import { GuitarTabPlayer } from "@/components/tools/GuitarTabPlayer";
 import { SheetMusicViewer } from "@/components/tools/SheetMusicViewer";
+import { PerformanceRecorder } from "@/components/tools/PerformanceRecorder";
 
 export default function ToolsPage() {
   return (
@@ -100,8 +101,13 @@ export default function ToolsPage() {
         </TabsContent>
 
         <TabsContent value="sheet-music" className="mt-6">
-          <div className="max-w-5xl mx-auto">
-            <SheetMusicViewer />
+          <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="lg:col-span-2">
+              <SheetMusicViewer />
+            </div>
+            <div className="lg:col-span-1">
+              <PerformanceRecorder />
+            </div>
           </div>
         </TabsContent>
 

@@ -10,7 +10,8 @@ import {
   ArrowUpRight,
   ArrowDownRight,
   DollarSign,
-  UserCheck
+  UserCheck,
+  Video
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { ADMIN_STATS } from "@/lib/mock-data";
@@ -110,6 +111,28 @@ export default function AdminDashboardPage() {
           trendUp={false}
           color="bg-amber-500/20 text-amber-400"
           delay={0.15}
+        />
+      </div>
+
+      {/* Secondary KPI Grid for Feedbacks */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <AdminStatCard
+          icon={Video}
+          label="Vidéos d'Élèves Reçues"
+          value="1,245"
+          trend="18%"
+          trendUp={true}
+          color="bg-blue-500/20 text-blue-400"
+          delay={0.18}
+        />
+        <AdminStatCard
+          icon={UserCheck}
+          label="Taux de Feedbacks Complétés (Profs)"
+          value="94%"
+          trend="2%"
+          trendUp={true}
+          color="bg-emerald-500/20 text-emerald-400"
+          delay={0.2}
         />
       </div>
 

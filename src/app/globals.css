@@ -51,56 +51,65 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-/* ===== Atyef Dark Theme (Default) ===== */
+/* ===== Cinematic Dark Default | Apple x Masterclass ===== */
 :root {
-  --background: oklch(0.11 0.01 280);
-  --foreground: oklch(0.97 0 0);
-  --card: oklch(0.16 0.015 280);
-  --card-foreground: oklch(0.97 0 0);
-  --popover: oklch(0.16 0.015 280);
-  --popover-foreground: oklch(0.97 0 0);
-  --primary: oklch(0.58 0.22 280);
-  --primary-foreground: oklch(0.98 0 0);
-  --secondary: oklch(0.22 0.02 280);
-  --secondary-foreground: oklch(0.92 0 0);
-  --muted: oklch(0.22 0.02 280);
-  --muted-foreground: oklch(0.65 0.02 260);
-  --accent: oklch(0.75 0.17 65);
-  --accent-foreground: oklch(0.15 0 0);
+  /* Pitch Black Deep / Darkspace */
+  --background: oklch(0.12 0.005 280); 
+  --foreground: oklch(0.98 0.005 280);
+  
+  --card: oklch(0.15 0.01 280);
+  --card-foreground: oklch(0.98 0.005 280);
+  
+  --popover: oklch(0.15 0.01 280);
+  --popover-foreground: oklch(0.98 0.005 280);
+  
+  /* Primary: Masterclass Gold / Apple White */
+  --primary: oklch(0.98 0.005 280);
+  --primary-foreground: oklch(0.12 0.005 280);
+  
+  /* Secondary: Deep Glass Contrast */
+  --secondary: oklch(0.20 0.015 280);
+  --secondary-foreground: oklch(0.98 0.005 280);
+  
+  --muted: oklch(0.20 0.015 280);
+  --muted-foreground: oklch(0.70 0.01 280);
+  
+  /* Accent: Yousician Neon Purple/Emerald */
+  --accent: oklch(0.68 0.22 290);
+  --accent-foreground: oklch(0.98 0.005 280);
+  
   --destructive: oklch(0.65 0.2 25);
-  --border: oklch(0.25 0.02 280);
-  --input: oklch(0.25 0.02 280);
-  --ring: oklch(0.58 0.22 280);
-  --chart-1: oklch(0.58 0.22 280);
-  --chart-2: oklch(0.65 0.18 160);
-  --chart-3: oklch(0.75 0.17 65);
-  --chart-4: oklch(0.6 0.2 330);
-  --chart-5: oklch(0.7 0.15 200);
-  --radius: 0.75rem;
-  --sidebar: oklch(0.13 0.015 280);
-  --sidebar-foreground: oklch(0.92 0 0);
-  --sidebar-primary: oklch(0.58 0.22 280);
-  --sidebar-primary-foreground: oklch(0.98 0 0);
-  --sidebar-accent: oklch(0.2 0.02 280);
-  --sidebar-accent-foreground: oklch(0.92 0 0);
-  --sidebar-border: oklch(0.25 0.02 280);
-  --sidebar-ring: oklch(0.58 0.22 280);
+  --border: oklch(0.25 0.01 280);
+  --input: oklch(0.20 0.015 280);
+  --ring: oklch(0.50 0.20 290);
+  
+  --sidebar: oklch(0.15 0.01 280);
+  --sidebar-foreground: oklch(0.98 0.005 280);
+  --sidebar-primary: oklch(0.98 0.005 280);
+  --sidebar-primary-foreground: oklch(0.12 0.005 280);
+  --sidebar-accent: oklch(0.20 0.015 280);
+  --sidebar-accent-foreground: oklch(0.98 0.005 280);
+  --sidebar-border: oklch(0.25 0.01 280);
+  --sidebar-ring: oklch(0.50 0.20 290);
 
-  /* Atyef Custom Properties */
-  --ml-purple: oklch(0.58 0.22 280);
-  --ml-purple-light: oklch(0.68 0.2 280);
-  --ml-purple-dark: oklch(0.45 0.22 280);
-  --ml-amber: oklch(0.75 0.17 65);
-  --ml-amber-light: oklch(0.82 0.14 65);
-  --ml-green: oklch(0.65 0.18 160);
-  --ml-surface: oklch(0.16 0.015 280);
-  --ml-surface-hover: oklch(0.2 0.02 280);
-  --ml-gradient-start: oklch(0.58 0.22 280);
-  --ml-gradient-end: oklch(0.6 0.2 330);
+  /* Atyef Custom Cinematic Properties */
+  --ml-purple: oklch(0.58 0.22 290);
+  --ml-purple-light: oklch(0.75 0.25 290);
+  --ml-purple-dark: oklch(0.40 0.20 290);
+  --ml-amber: oklch(0.85 0.15 75); /* Masterclass Gold Accent */
+  --ml-amber-light: oklch(0.92 0.10 75);
+  --ml-green: oklch(0.75 0.20 160); /* Yousician Emerald */
+  --ml-surface: oklch(0.18 0.01 280);
+  --ml-surface-hover: oklch(0.22 0.015 280);
+  --ml-gradient-start: oklch(0.58 0.22 290);
+  --ml-gradient-end: oklch(0.65 0.25 320);
+
+  --radius: 1rem; /* Apple Rounded Corners */
 }
 
+/* Fallback for components that explicitly check .dark */
 .dark {
-  /* Same as root since dark is default */
+  /* Inherit all root vars since we forced Root to dark */
 }
 
 @layer base {
@@ -147,9 +156,28 @@
   100% { background-position: 0% 50%; }
 }
 
-@keyframes beat {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.15); }
+/* ===== Custom Liquid Drift Animations ===== */
+@keyframes liquid-drift {
+  0% { transform: scale(1) translate(0, 0) rotate(0deg); opacity: 0.8; }
+  33% { transform: scale(1.1) translate(5%, 3%) rotate(2deg); opacity: 0.6; }
+  66% { transform: scale(0.9) translate(-5%, 5%) rotate(-2deg); opacity: 0.9; }
+  100% { transform: scale(1) translate(0, 0) rotate(0deg); opacity: 0.8; }
+}
+
+.animate-liquid-1 {
+  animation: liquid-drift 15s ease-in-out infinite alternate;
+}
+.animate-liquid-2 {
+  animation: liquid-drift 20s ease-in-out infinite alternate-reverse;
+  animation-delay: -5s;
+}
+
+/* Modifiers for liquid blobs */
+.liquid-blob-purple {
+  background: radial-gradient(circle, oklch(0.35 0.20 290 / 0.5) 0%, transparent 70%);
+}
+.liquid-blob-emerald {
+  background: radial-gradient(circle, oklch(0.4 0.15 160 / 0.3) 0%, transparent 60%);
 }
 
 .animate-float {
@@ -184,26 +212,40 @@
 .delay-400 { animation-delay: 400ms; }
 .delay-500 { animation-delay: 500ms; }
 
-/* ===== Glassmorphism ===== */
+/* ===== Cinematic Glassmorphism (Apple Vision Pro Style) ===== */
 .glass {
-  background: oklch(0.16 0.015 280 / 0.6);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid oklch(1 0 0 / 0.08);
+  background: rgba(20, 20, 22, 0.4);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+.glass-pill {
+  background: rgba(10, 10, 12, 0.6);
+  backdrop-filter: blur(30px) saturate(200%);
+  -webkit-backdrop-filter: blur(30px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border-radius: 9999px;
 }
 
 .glass-card {
-  background: oklch(0.16 0.015 280 / 0.4);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid oklch(1 0 0 / 0.06);
-  transition: all 0.3s ease;
+  background: rgba(30, 30, 35, 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-top: 1px solid rgba(255, 255, 255, 0.08); /* Apple shine effect */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  border-radius: 20px;
 }
 
 .glass-card:hover {
-  background: oklch(0.2 0.02 280 / 0.5);
-  border-color: oklch(0.58 0.22 280 / 0.3);
-  transform: translateY(-2px);
+  background: rgba(40, 40, 48, 0.5);
+  border-color: rgba(255, 255, 255, 0.12);
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(108, 60, 225, 0.1);
 }
 
 /* ===== Gradient Text ===== */
