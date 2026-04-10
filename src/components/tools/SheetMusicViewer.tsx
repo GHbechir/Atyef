@@ -271,6 +271,126 @@ const DEMO_SCORES: Record<string, Score> = {
       },
     ],
   },
+  "samai-bayati": {
+    title: "Samai Bayati",
+    composer: "Ibrahim al-Aryan",
+    bpm: 90,
+    timeSignature: [10, 8],
+    tracks: [
+      {
+        instrument: "piano", // Oud simulation
+        name: "Oud / Mélodie",
+        muted: false,
+        notes: [
+          // Simplified 10/8 rhythm for demo purposes
+          { midi: 62, time: 0, duration: 1, velocity: 0.8 }, // D
+          { midi: 62, time: 1, duration: 1, velocity: 0.8 }, // D
+          { midi: 63, time: 2, duration: 1, velocity: 0.8 }, // Eb (simplified half-flat)
+          { midi: 65, time: 3, duration: 1, velocity: 0.8 }, // F
+          { midi: 67, time: 4, duration: 2, velocity: 0.8 }, // G
+          { midi: 65, time: 6, duration: 1, velocity: 0.8 }, // F
+          { midi: 63, time: 7, duration: 1, velocity: 0.8 }, // Eb
+          { midi: 62, time: 8, duration: 2, velocity: 0.8 }, // D
+          // Phrase 2
+          { midi: 69, time: 10, duration: 1, velocity: 0.8 }, // A
+          { midi: 67, time: 11, duration: 1, velocity: 0.8 }, // G
+          { midi: 65, time: 12, duration: 1, velocity: 0.8 }, // F
+          { midi: 63, time: 13, duration: 1, velocity: 0.8 }, // Eb
+          { midi: 62, time: 14, duration: 2, velocity: 0.8 }, // D
+          { midi: 60, time: 16, duration: 1, velocity: 0.8 }, // C
+          { midi: 58, time: 17, duration: 1, velocity: 0.8 }, // Bb
+          { midi: 57, time: 18, duration: 2, velocity: 0.8 }, // A
+        ],
+      },
+      {
+        instrument: "drums",
+        name: "Darbuka (Samai)",
+        muted: false,
+        notes: [
+          // Samai thaqil pattern: Dum .. Tek .. Dum Dum Tek .. (10/8)
+          { midi: 36, time: 0, duration: 1, velocity: 0.9 }, // Dum
+          { midi: 38, time: 3, duration: 1, velocity: 0.7 }, // Tek
+          { midi: 36, time: 6, duration: 1, velocity: 0.9 }, // Dum
+          { midi: 36, time: 7, duration: 1, velocity: 0.9 }, // Dum
+          { midi: 38, time: 8, duration: 1, velocity: 0.7 }, // Tek
+          
+          { midi: 36, time: 10, duration: 1, velocity: 0.9 }, // Dum
+          { midi: 38, time: 13, duration: 1, velocity: 0.7 }, // Tek
+          { midi: 36, time: 16, duration: 1, velocity: 0.9 }, // Dum
+          { midi: 36, time: 17, duration: 1, velocity: 0.9 }, // Dum
+          { midi: 38, time: 18, duration: 1, velocity: 0.7 }, // Tek
+        ],
+      },
+    ],
+  },
+  "sidi-mansour": {
+    title: "Sidi Mansour",
+    composer: "Traditionnel Tunisien",
+    bpm: 105,
+    timeSignature: [4, 4],
+    tracks: [
+      {
+        instrument: "piano", // Mezoued/Zokra simulation
+        name: "Mélodie (Zokra)",
+        muted: false,
+        notes: [
+          { midi: 69, time: 0, duration: 0.5, velocity: 0.9 }, // A
+          { midi: 67, time: 0.5, duration: 0.5, velocity: 0.9 }, // G
+          { midi: 69, time: 1, duration: 1, velocity: 0.9 },   // A
+          { midi: 65, time: 2, duration: 0.5, velocity: 0.9 }, // F
+          { midi: 67, time: 2.5, duration: 0.5, velocity: 0.9 }, // G
+          { midi: 69, time: 3, duration: 1, velocity: 0.9 },   // A
+          
+          { midi: 69, time: 4, duration: 0.5, velocity: 0.9 }, // A
+          { midi: 67, time: 4.5, duration: 0.5, velocity: 0.9 }, // G
+          { midi: 69, time: 5, duration: 1, velocity: 0.9 },   // A
+          { midi: 65, time: 6, duration: 0.5, velocity: 0.9 }, // F
+          { midi: 67, time: 6.5, duration: 0.5, velocity: 0.9 }, // G
+          { midi: 69, time: 7, duration: 1, velocity: 0.9 },   // A
+          
+          // Ya baba Sidi Mansour
+          { midi: 72, time: 8, duration: 1, velocity: 0.9 },   // C
+          { midi: 70, time: 9, duration: 1, velocity: 0.9 },   // Bb
+          { midi: 69, time: 10, duration: 1, velocity: 0.9 },  // A
+          { midi: 67, time: 11, duration: 1, velocity: 0.9 },  // G
+          { midi: 65, time: 12, duration: 1, velocity: 0.9 },  // F
+          { midi: 67, time: 13, duration: 1, velocity: 0.9 },  // G
+          { midi: 69, time: 14, duration: 2, velocity: 0.9 },  // A
+        ],
+      },
+      {
+        instrument: "drums",
+        name: "Percussions (Fazzani)",
+        muted: false,
+        notes: [
+          // Fazzani pattern
+          { midi: 36, time: 0, duration: 0.5, velocity: 0.9 }, // Dum
+          { midi: 38, time: 1, duration: 0.5, velocity: 0.7 }, // Tek
+          { midi: 36, time: 2, duration: 0.5, velocity: 0.9 }, // Dum
+          { midi: 38, time: 2.5, duration: 0.5, velocity: 0.7 },// Tek
+          { midi: 38, time: 3, duration: 0.5, velocity: 0.7 }, // Tek
+          
+          { midi: 36, time: 4, duration: 0.5, velocity: 0.9 },
+          { midi: 38, time: 5, duration: 0.5, velocity: 0.7 },
+          { midi: 36, time: 6, duration: 0.5, velocity: 0.9 },
+          { midi: 38, time: 6.5, duration: 0.5, velocity: 0.7 },
+          { midi: 38, time: 7, duration: 0.5, velocity: 0.7 },
+          
+          { midi: 36, time: 8, duration: 0.5, velocity: 0.9 },
+          { midi: 38, time: 9, duration: 0.5, velocity: 0.7 },
+          { midi: 36, time: 10, duration: 0.5, velocity: 0.9 },
+          { midi: 38, time: 10.5, duration: 0.5, velocity: 0.7 },
+          { midi: 38, time: 11, duration: 0.5, velocity: 0.7 },
+          
+          { midi: 36, time: 12, duration: 0.5, velocity: 0.9 },
+          { midi: 38, time: 13, duration: 0.5, velocity: 0.7 },
+          { midi: 36, time: 14, duration: 0.5, velocity: 0.9 },
+          { midi: 38, time: 14.5, duration: 0.5, velocity: 0.7 },
+          { midi: 38, time: 15, duration: 0.5, velocity: 0.7 },
+        ]
+      }
+    ]
+  }
 };
 
 // ===== COMPONENT =====
