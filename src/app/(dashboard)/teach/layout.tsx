@@ -72,7 +72,7 @@ export default function TeacherLayout({
         </Link>
       </div>
 
-      <Separator className="bg-white/5" />
+      <Separator className="bg-border" />
 
       {/* Role Badge */}
       {!collapsed && (
@@ -96,12 +96,12 @@ export default function TeacherLayout({
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 group ${
                   isActive
                     ? "bg-amber-500/15 text-amber-400"
-                    : "text-muted-foreground hover:text-white hover:bg-white/5"
+                    : "text-muted-foreground hover:text-foreground hover:bg-sidebar-accent"
                 }`}
               >
                 <item.icon
                   className={`w-4.5 h-4.5 shrink-0 ${
-                    isActive ? "text-amber-400" : "text-muted-foreground group-hover:text-white"
+                    isActive ? "text-amber-400" : "text-muted-foreground group-hover:text-foreground"
                   }`}
                 />
                 {!collapsed && <span className="truncate">{t(item.key as any)}</span>}
@@ -114,15 +114,15 @@ export default function TeacherLayout({
         {!collapsed && (
           <div className="mt-6 mx-1 p-4 rounded-xl bg-gradient-to-br from-amber-500/10 to-orange-500/10 border border-amber-500/20">
             <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-1">{t("revenue_this_month")}</p>
-            <p className="text-xl font-bold text-white">€ 4 280</p>
+            <p className="text-xl font-bold text-foreground">€ 4 280</p>
             <p className="text-xs text-emerald-400 mt-0.5">+12% {t("vs_last_month")}</p>
           </div>
         )}
       </ScrollArea>
 
-      <div className="shrink-0 p-3 border-t border-white/5">
+      <div className="shrink-0 p-3 border-t border-border">
         <DropdownMenu>
-          <DropdownMenuTrigger className={`flex items-center gap-3 w-full p-2 rounded-lg hover:bg-white/5 transition-colors ${collapsed ? "justify-center" : ""}`}>
+          <DropdownMenuTrigger className={`flex items-center gap-3 w-full p-2 rounded-lg hover:bg-sidebar-accent transition-colors ${collapsed ? "justify-center" : ""}`}>
               <Avatar className="w-8 h-8 shrink-0">
                 <AvatarFallback className="bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold">
                   ML
@@ -130,7 +130,7 @@ export default function TeacherLayout({
               </Avatar>
               {!collapsed && (
                 <div className="flex-1 text-left min-w-0">
-                  <p className="text-sm font-medium text-white truncate">Marie Laurent</p>
+                  <p className="text-sm font-medium text-foreground truncate">Marie Laurent</p>
                   <p className="text-xs text-amber-400">Professeur</p>
                 </div>
               )}
@@ -160,36 +160,36 @@ export default function TeacherLayout({
 
   return (
     <div className="flex h-screen overflow-hidden bg-background">
-      <aside className={`hidden lg:flex flex-col border-r border-white/5 bg-[oklch(0.13_0.015_280)] transition-all duration-300 ${collapsed ? "w-[68px]" : "w-64"}`}>
+      <aside className={`hidden lg:flex flex-col border-r border-sidebar-border bg-sidebar transition-all duration-300 ${collapsed ? "w-[68px]" : "w-64"}`}>
         <SidebarContent />
-        <button onClick={() => setCollapsed(!collapsed)} className="absolute top-20 -right-3 w-6 h-6 rounded-full bg-[oklch(0.2_0.02_280)] border border-white/10 flex items-center justify-center text-muted-foreground hover:text-white hover:bg-[oklch(0.25_0.02_280)] transition-colors z-10" style={{ left: collapsed ? "56px" : "248px" }}>
+        <button onClick={() => setCollapsed(!collapsed)} className="absolute top-20 -right-3 w-6 h-6 rounded-full bg-background border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-sidebar-accent transition-colors z-10" style={{ left: collapsed ? "56px" : "248px" }}>
           {collapsed ? <ChevronRight className="w-3 h-3" /> : <ChevronLeft className="w-3 h-3" />}
         </button>
       </aside>
 
       {mobileOpen && <div className="lg:hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-40" onClick={() => setMobileOpen(false)} />}
 
-      <aside className={`lg:hidden fixed top-0 left-0 bottom-0 w-64 bg-[oklch(0.13_0.015_280)] border-r border-white/5 z-50 transition-transform duration-300 ${mobileOpen ? "translate-x-0" : "-translate-x-full"}`}>
+      <aside className={`lg:hidden fixed top-0 left-0 bottom-0 w-64 bg-sidebar border-r border-sidebar-border z-50 transition-transform duration-300 ${mobileOpen ? "translate-x-0" : "-translate-x-full"}`}>
         <SidebarContent />
       </aside>
 
       <div className="flex-1 flex flex-col min-w-0">
-        <header className="h-16 border-b border-white/5 flex items-center justify-between px-4 lg:px-6 shrink-0 bg-background/80 backdrop-blur-sm">
+        <header className="h-16 border-b border-border flex items-center justify-between px-4 lg:px-6 shrink-0 bg-background/80 backdrop-blur-sm">
           <div className="flex items-center gap-4">
-            <button className="lg:hidden p-2 rounded-lg text-muted-foreground hover:text-white hover:bg-white/5" onClick={() => setMobileOpen(true)}>
+            <button className="lg:hidden p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-sidebar-accent" onClick={() => setMobileOpen(true)}>
               <Menu className="w-5 h-5" />
             </button>
             <div className="hidden sm:block relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-              <Input placeholder={t("search_course")} className="pl-9 w-64 h-9 bg-white/5 border-white/10 text-white text-sm placeholder:text-muted-foreground" />
+              <Input placeholder={t("search_course")} className="pl-9 w-64 h-9 bg-foreground/5 border-border text-foreground text-sm placeholder:text-muted-foreground" />
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <div className="flex items-center gap-1 border-r border-white/10 pr-2 mr-2">
+            <div className="flex items-center gap-1 border-r border-border pr-2 mr-2">
               <LanguageToggle />
               <ThemeToggle />
             </div>
-            <button className="relative p-2 rounded-lg text-muted-foreground hover:text-white hover:bg-white/5 transition-colors">
+            <button className="relative p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-sidebar-accent transition-colors">
               <Bell className="w-5 h-5" />
               <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-red-500" />
             </button>

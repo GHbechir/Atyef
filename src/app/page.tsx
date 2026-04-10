@@ -39,9 +39,18 @@ export default function Home() {
       
       {/* ====== LIQUID GLASS BACKGROUND ====== */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0 bg-background">
-        <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] animate-liquid-1 liquid-blob-purple mix-blend-screen opacity-60 blur-3xl rounded-full" />
-        <div className="absolute top-[20%] right-[-10%] w-[50%] h-[70%] animate-liquid-2 liquid-blob-emerald mix-blend-screen opacity-40 blur-3xl rounded-full" />
-        <div className="absolute bottom-[-20%] left-[20%] w-[50%] h-[50%] animate-liquid-1 liquid-blob-purple mix-blend-screen opacity-50 blur-3xl rounded-full" style={{ animationDelay: '-10s' }} />
+        <div 
+          className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] animate-liquid-1 liquid-blob-purple blur-3xl rounded-full" 
+          style={{ mixBlendMode: 'var(--blob-blend)' as any, opacity: 'var(--blob-opacity)' as any }}
+        />
+        <div 
+          className="absolute top-[20%] right-[-10%] w-[50%] h-[70%] animate-liquid-2 liquid-blob-emerald blur-3xl rounded-full" 
+          style={{ mixBlendMode: 'var(--blob-blend)' as any, opacity: 'var(--blob-opacity)' as any }}
+        />
+        <div 
+          className="absolute bottom-[-20%] left-[20%] w-[50%] h-[50%] animate-liquid-1 liquid-blob-purple blur-3xl rounded-full" 
+          style={{ animationDelay: '-10s', mixBlendMode: 'var(--blob-blend)' as any, opacity: 'var(--blob-opacity)' as any }}
+        />
         {/* Subtle noise texture */}
         <div className="absolute inset-0 opacity-[0.03] mix-blend-overlay" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")' }}></div>
       </div>
@@ -80,14 +89,14 @@ export default function Home() {
 
           {/* Accessories & Actions */}
           <div className="hidden md:flex items-center gap-2">
-            <div className="flex items-center bg-black/50 rounded-full p-1 border border-white/5 mr-2">
+            <div className="flex items-center bg-foreground/10 dark:bg-black/50 rounded-full p-1 border border-border mr-2">
               {(["ar", "fr", "en"] as Language[]).map((l) => (
                 <button
                   key={l}
                   onClick={() => setLang(l)}
                   className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase transition-all ${
                     lang === l
-                      ? "bg-white text-black shadow-sm"
+                      ? "bg-background text-foreground shadow-sm"
                       : "text-foreground/50 hover:text-foreground"
                   }`}
                 >
@@ -179,7 +188,6 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             className="text-5xl md:text-7xl lg:text-[6rem] font-bold font-heading leading-[1] text-foreground tracking-tight max-w-5xl"
-            style={{ textShadow: '0 10px 40px rgba(0,0,0,0.5)' }}
           >
             {t("hero_title_1")}
             <br />
@@ -204,13 +212,13 @@ export default function Home() {
             className="flex flex-col sm:flex-row items-center justify-center gap-5 w-full sm:w-auto mt-12"
           >
             <Link href="/courses" className="w-full sm:w-auto group">
-              <Button className="w-full sm:w-auto h-14 px-10 text-base font-semibold bg-white text-black hover:bg-white/90 rounded-full shadow-[0_0_30px_rgba(255,255,255,0.2)] transition-all group-hover:scale-105 group-hover:shadow-[0_0_40px_rgba(255,255,255,0.4)]">
+              <Button className="w-full sm:w-auto h-14 px-10 text-base font-semibold bg-primary text-primary-foreground hover:opacity-90 rounded-full shadow-lg shadow-primary/20 transition-all group-hover:scale-105">
                 {t("hero_cta")}
                 <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
             <Link href="#preview" className="w-full sm:w-auto">
-              <Button variant="outline" className="w-full sm:w-auto h-14 px-8 text-base font-medium glass-pill border-white/20 hover:bg-white/10 text-foreground rounded-full transition-all hover:scale-105">
+              <Button variant="outline" className="w-full sm:w-auto h-14 px-8 text-base font-medium glass-pill border-border hover:bg-foreground/5 text-foreground rounded-full transition-all hover:scale-105">
                 <Play className="w-4 h-4 mr-2" />
                 Voir comment ça marche
               </Button>
@@ -252,15 +260,15 @@ export default function Home() {
                   key={idx} 
                   className="group relative h-[400px] rounded-3xl overflow-hidden glass-card cursor-pointer border border-white/5"
                 >
-                  <div className={`absolute inset-0 ${course.img} transition-transform duration-700 group-hover:scale-110 opacity-50 mix-blend-overlay`} />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                  <div className={`absolute inset-0 ${course.img} transition-transform duration-700 group-hover:scale-110 opacity-30 dark:opacity-50 mix-blend-overlay`} />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent" />
                   
                   <div className="absolute inset-0 p-8 flex flex-col justify-between">
-                     <div className="w-12 h-12 rounded-full glass flex items-center justify-center text-2xl">
+                     <div className="w-12 h-12 rounded-full glass border border-border flex items-center justify-center text-2xl">
                         {course.icon}
                      </div>
                      <div>
-                        <Badge variant="outline" className="glass-pill border-white/20 text-foreground mb-4">Nouveau</Badge>
+                        <Badge variant="outline" className="glass-pill border-border text-foreground mb-4">Nouveau</Badge>
                         <h3 className="text-2xl font-bold text-foreground mb-2">{course.title}</h3>
                         <p className="text-foreground/60 text-sm line-clamp-2">Plongez dans des leçons immersives avec rendu 4K et partitions synchronisées.</p>
                      </div>

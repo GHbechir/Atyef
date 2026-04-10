@@ -40,7 +40,7 @@ export function Navbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "glass border-b border-white/5 shadow-lg shadow-black/20"
+          ? "glass"
           : "bg-transparent"
       }`}
     >
@@ -67,8 +67,8 @@ export function Navbar() {
                 href={link.href}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                   pathname === link.href
-                    ? "text-white bg-white/10"
-                    : "text-muted-foreground hover:text-white hover:bg-white/5"
+                    ? "text-foreground bg-primary/10"
+                    : "text-muted-foreground hover:text-foreground hover:bg-foreground/5"
                 }`}
               >
                 {t(link.key as any)}
@@ -78,12 +78,12 @@ export function Navbar() {
 
           {/* Desktop Auth Buttons */}
           <div className="hidden lg:flex items-center gap-3">
-            <div className="flex items-center gap-1 mr-2 border-r border-white/10 pr-4">
+            <div className="flex items-center gap-1 mr-2 border-r border-border pr-4">
               <LanguageToggle />
               <ThemeToggle />
             </div>
             <Link href="/sign-in">
-              <Button variant="ghost" className="text-sm font-medium text-muted-foreground hover:text-white">
+              <Button variant="ghost" className="text-sm font-medium text-muted-foreground hover:text-foreground">
                 {t("login")}
               </Button>
             </Link>
@@ -96,7 +96,7 @@ export function Navbar() {
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden p-2 rounded-lg text-muted-foreground hover:text-white hover:bg-white/5 transition-colors"
+            className="lg:hidden p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-foreground/5 transition-colors"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Menu"
           >
@@ -119,8 +119,8 @@ export function Navbar() {
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={`px-4 py-3 rounded-lg text-sm font-medium transition-all ${
                     pathname === link.href
-                      ? "text-white bg-white/10"
-                      : "text-muted-foreground hover:text-white hover:bg-white/5"
+                      ? "text-foreground bg-foreground/10"
+                      : "text-muted-foreground hover:text-foreground hover:bg-foreground/5"
                   }`}
                 >
                   {t(link.key as any)}
@@ -131,9 +131,9 @@ export function Navbar() {
               <LanguageToggle />
               <ThemeToggle />
             </div>
-            <div className="flex flex-col gap-2 pt-4 border-t border-white/10">
+            <div className="flex flex-col gap-2 pt-4 border-t border-border">
               <Link href="/sign-in" onClick={() => setIsMobileMenuOpen(false)}>
-                <Button variant="ghost" className="w-full justify-center text-muted-foreground hover:text-white">
+                <Button variant="ghost" className="w-full justify-center text-muted-foreground hover:text-foreground">
                   {t("login")}
                 </Button>
               </Link>

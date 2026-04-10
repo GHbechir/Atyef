@@ -38,7 +38,7 @@ export default function PricingPage() {
         >
           <Badge
             variant="outline"
-            className="mb-4 px-3 py-1 text-xs border-amber-500/30 text-amber-300 bg-amber-500/10"
+            className="mb-4 px-3 py-1 text-xs border-accent/30 text-accent bg-accent/10"
           >
             Tarifs transparents
           </Badge>
@@ -76,13 +76,13 @@ export default function PricingPage() {
                 </div>
               )}
               <div className="mb-6">
-                <h2 className="text-2xl font-bold font-heading text-white mb-1">
+                <h2 className="text-2xl font-bold font-heading text-foreground mb-1">
                   {plan.name}
                 </h2>
                 <p className="text-sm text-muted-foreground">{plan.description}</p>
               </div>
               <div className="flex items-baseline gap-1 mb-2">
-                <span className="text-5xl font-bold font-heading text-white">
+                <span className="text-5xl font-bold font-heading text-foreground">
                   {plan.price.toFixed(2).replace(".", ",")} €
                 </span>
                 <span className="text-muted-foreground text-lg">/ {plan.period}</span>
@@ -94,8 +94,8 @@ export default function PricingPage() {
                 <Button
                   className={`w-full h-12 text-base font-medium mb-8 group ${
                     plan.popular
-                      ? "gradient-bg text-white hover:opacity-90 border-0 shadow-lg shadow-purple-500/20"
-                      : "bg-white/5 hover:bg-white/10 text-white border border-white/10"
+                      ? "gradient-bg text-primary-foreground hover:opacity-90 border-0 shadow-lg shadow-primary/20"
+                      : "bg-foreground/5 hover:bg-foreground/10 text-foreground border border-border"
                   }`}
                 >
                   {plan.cta}
@@ -105,8 +105,8 @@ export default function PricingPage() {
               <ul className="space-y-3">
                 {plan.features.map((feature) => (
                   <li key={feature} className="flex items-start gap-3 text-sm">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400 mt-0.5 shrink-0" />
-                    <span className="text-gray-300">{feature}</span>
+                    <CheckCircle2 className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" />
+                    <span className="text-foreground/80">{feature}</span>
                   </li>
                 ))}
                 {plan.notIncluded.map((feature) => (
@@ -144,9 +144,9 @@ export default function PricingPage() {
               transition={{ delay: i * 0.1 }}
             >
               <div className="flex items-start gap-3">
-                <HelpCircle className="w-5 h-5 text-purple-400 mt-0.5 shrink-0" />
+                <HelpCircle className="w-5 h-5 text-accent mt-0.5 shrink-0" />
                 <div>
-                  <h3 className="text-sm font-semibold text-white mb-2">{item.q}</h3>
+                  <h3 className="text-sm font-semibold text-foreground mb-2">{item.q}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">{item.a}</p>
                 </div>
               </div>

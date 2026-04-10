@@ -16,7 +16,7 @@ export default function AboutPage() {
           transition={{ duration: 0.5 }}
           className="relative z-10"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-sm text-purple-300 mb-6 backdrop-blur-md">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-foreground/5 border border-border text-sm text-accent mb-6 backdrop-blur-md">
             <Sparkles className="w-4 h-4" />
             <span>Notre histoire</span>
           </div>
@@ -57,10 +57,10 @@ export default function AboutPage() {
               transition={{ delay: i * 0.1 }}
               className="glass-card p-8 rounded-2xl flex flex-col items-center text-center hover:bg-white/[0.04] transition-colors"
             >
-              <div className="w-16 h-16 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mb-6">
+              <div className="w-16 h-16 rounded-xl bg-foreground/5 border border-border flex items-center justify-center mb-6">
                 {value.icon}
               </div>
-              <h3 className="text-xl font-bold font-heading text-white mb-3">{value.title}</h3>
+              <h3 className="text-xl font-bold font-heading text-foreground mb-3">{value.title}</h3>
               <p className="text-muted-foreground">{value.description}</p>
             </motion.div>
           ))}
@@ -87,16 +87,16 @@ export default function AboutPage() {
                 Atyef est née d'un constat simple : l'apprentissage traditionnel de la musique peut souvent sembler rigide et inaccessible. Nous avons voulu créer un espace où la rigueur académique rencontre la flexibilité du numérique.
               </p>
               <p>
-                Que vous souhaitiez gratouiller quelques accords au coin du feu ou maîtriser des sonates complexes, notre plateforme a été pensée pour s'adapter à <strong className="text-white font-medium">votre rythme</strong> et à <strong className="text-white font-medium">vos objectifs</strong>.
+                Que vous souhaitiez gratouiller quelques accords au coin du feu ou maîtriser des sonates complexes, notre plateforme a été pensée pour s'adapter à <strong className="text-foreground font-medium">votre rythme</strong> et à <strong className="text-foreground font-medium">vos objectifs</strong>.
               </p>
               <p>
                 Aujourd'hui, Atyef met en relation des professeurs passionnés avec des milliers d'élèves, brisant les frontières pour créer la plus belle des symphonies : celle du partage.
               </p>
             </div>
             
-            <div className="mt-10 flex items-center gap-4 p-4 rounded-xl bg-white/[0.02] border border-white/5">
+            <div className="mt-10 flex items-center gap-4 p-4 rounded-xl bg-foreground/[0.02] border border-border">
               <Shield className="w-6 h-6 text-emerald-400 shrink-0" />
-              <p className="text-sm text-gray-300">
+              <p className="text-sm text-muted-foreground">
                 Engagés pour une éducation musicale de la plus haute qualité.
               </p>
             </div>
